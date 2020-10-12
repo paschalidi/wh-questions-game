@@ -17,7 +17,8 @@ export const startAuthListenerEpic = (action$, state$, { firebase }) =>
       return authState(app.auth()).pipe(
         map((user) => {
           if (user) {
-            return setAuthenticated(user);
+            const { uuid, displayName } = user;
+            return setAuthenticated({ uuid, displayName });
           } else {
             return setUnauthenticated();
           }
