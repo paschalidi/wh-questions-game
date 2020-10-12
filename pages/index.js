@@ -14,13 +14,15 @@ export default function Home({}) {
     <>
       {authStatus === authStatuses.LOGGED_IN && (
         <div>
-          <h5>{displayName}</h5>
-          welcome to the wh question
+          <h3>{displayName}</h3>
         </div>
       )}
       {authStatus === authStatuses.NOT_LOGGED_IN && (
-        <button onClick={() => dispatch(userLoginStart())}>Login</button>
+        <div>
+          <button onClick={() => dispatch(userLoginStart())}>Login</button>
+        </div>
       )}
+      <h3>Welcome to the game you always looking for</h3>
     </>
   );
 }
