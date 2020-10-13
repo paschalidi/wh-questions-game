@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { userLoginStart } from "../modules/store/loginWithGoogle/actions";
 import { authStatuses } from "../modules/store/auth/reducer";
+import { Loading } from "../components/Loading";
 
 export default function Home({}) {
   const dispatch = useDispatch();
@@ -9,7 +10,7 @@ export default function Home({}) {
     (state) => state.authReducer.user.displayName
   );
 
-  if (authStatus === authStatuses.LOADING) return <div>loading</div>;
+  if (authStatus === authStatuses.LOADING) return <Loading />;
   return (
     <>
       {authStatus === authStatuses.LOGGED_IN && (
