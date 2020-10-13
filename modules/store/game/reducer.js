@@ -11,8 +11,8 @@ const initialState = {
   currentPlayerIndex: 0,
   gameContinues: true,
   allPlayers: {
-    ONE: { steps: 0, lastStepSize: 0 },
-    TWO: { steps: 0, lastStepSize: 0 },
+    ONE: { steps: 0, lastStepSize: 0, index: 0 },
+    TWO: { steps: 0, lastStepSize: 0, index: 1 },
   },
 };
 
@@ -26,19 +26,14 @@ export const gameReducer = createReducer(initialState, (builder) => {
       ({ steps }) => steps < 19
     );
 
-    // deriving the next player
     if (nextPlayerTurn) {
-      // if (state.currentPlayerIndex + 1 > state.totalNumberOfPlayers) {
-      //   // todo
-      //   // slice the Object.values(state.allPlayers) from the index you are at and move the ones before this in the end of the array.
-      //   // then do the check to find out whether game continues or not.
-      //   state.currentPlayerIndex = 1;
-      // }
-      // state.currentPlayerIndex = state.currentPlayerIndex + 1;
-      state.currentPlayerIndex =
-        state.currentPlayerIndex + 2 > state.totalNumberOfPlayers
-          ? 0
-          : state.currentPlayerIndex + 1;
+      const listOfPlayers = Object.values(state.allPlayers);
+      const firstHalf = listOfPlayers.splice(0, state.currentPlayerIndex + 1);
+      const secondHalf = listOfPlayers.splice(-(state.currentPlayerIndex + 1));
+      const allPlayers = [...secondHalf, ...firstHalf];
+
+      const { index } = allPlayers.find(({ steps }) => steps < 19) || {};
+      state.currentPlayerIndex = index;
     }
   });
 });
