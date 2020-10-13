@@ -34,7 +34,7 @@ const movementMappedOnSteps = (steps = 0, stepSize = 0) => {
       };
     case 9:
       return {
-        x: spring(stepSize * (steps - 4)),
+        x: spring(stepSize * (steps - 6)),
         y: spring(stepSize * 2 + 4),
       };
     case 10:

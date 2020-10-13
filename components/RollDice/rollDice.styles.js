@@ -6,10 +6,9 @@ export const DiceStyles = styled.div`
     background-color: transparent !important;
     border: none !important;
     font-size: 0;
-
-    &:disabled {
-      pointer: wait;
-    }
+  }
+  button:disabled {
+    pointer: wait;
   }
 
   align-items: center;
