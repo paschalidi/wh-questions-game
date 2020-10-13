@@ -19,6 +19,7 @@
     "react-motion": "^0.5.2",
     "react-redux": "^7.2.1",
     "react-use-dimensions": "^1.2.1",
+    "reakit": "^1.2.5",
     "redux-observable": "^1.2.0",
     "rxfire": "^3.13.5",
     "rxjs": "^6.6.3",

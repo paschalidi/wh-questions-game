@@ -65,10 +65,10 @@ export const Board = () => {
         <Col offset={1} lg={2}>
           <Row fullWidth>
             <Col lg={11} style={{ marginBottom: 10 }}>
-              <PlayerCard playerId="ONE">Player Two</PlayerCard>
+              <PlayerCard playerId="ONE" />
             </Col>
             <Col lg={11}>
-              <PlayerCard playerId="TWO">Player Two</PlayerCard>
+              <PlayerCard playerId="TWO" />
             </Col>
           </Row>
         </Col>
