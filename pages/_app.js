@@ -14,9 +14,10 @@ const GlobalStyles = createGlobalStyle`
 `;
 
 function MyApp({ Component, pageProps }) {
-  useEffect(() => {
-    store.dispatch(startLoadingFirebase());
-  }, [store]);
+  // todo
+  // useEffect(() => {
+  //   store.dispatch(startLoadingFirebase());
+  // }, [store]);
   return (
     <Provider store={store}>
       <GlobalStyles />

@@ -1,15 +1,26 @@
 import styled from "styled-components";
 
 export const DiceStyles = styled.div`
-    align-items: center;
-    display: grid;
-    grid-gap: 2rem;
-    grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
-    grid-template-rows: auto;
-    justify-items: center;
-    padding: 2rem;
-    perspective: 600px;
-    
+  button {
+    background: transparent !important;
+    background-color: transparent !important;
+    border: none !important;
+    font-size: 0;
+
+    &:disabled {
+      pointer: wait;
+    }
+  }
+
+  align-items: center;
+  display: grid;
+  grid-gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
+  grid-template-rows: auto;
+  justify-items: center;
+  padding: 2rem;
+  perspective: 600px;
+
   .die-list {
     display: grid;
     grid-template-columns: 1fr;

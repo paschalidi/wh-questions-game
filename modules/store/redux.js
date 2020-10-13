@@ -7,6 +7,7 @@ import { createEpicMiddleware, combineEpics } from "redux-observable";
 import { startLoadingFirebaseEpic } from "./firebase/epics";
 import { firebaseReducer } from "./firebase/reducer";
 import { authReducer } from "./auth/reducer";
+import { gameReducer } from "./game/reducer";
 import { firebaseApp$ } from "./firebase/config";
 import { startAuthListenerEpic } from "./auth/epics";
 import { userLoginStartEpic } from "./loginWithGoogle/epics";
@@ -20,6 +21,7 @@ const rootEpic = combineEpics(
 const rootReducer = combineReducers({
   firebaseReducer,
   authReducer,
+  gameReducer,
 });
 
 const [
