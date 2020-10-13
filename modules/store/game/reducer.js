@@ -20,12 +20,11 @@ export const gameReducer = createReducer(initialState, (builder) => {
   builder.addCase(pawnMovement, (state, { payload: { nextPlayerTurn } }) => {
     const currentPlayerId = players[state.currentPlayerIndex];
 
-    debugger;
     state.allPlayers[currentPlayerId].steps++;
 
-    // state.gameContinues = Object.values(state.allPlayers).some(
-    //   ({ steps }) => steps < 19
-    // );
+    state.gameContinues = Object.values(state.allPlayers).some(
+      ({ steps }) => steps < 19
+    );
 
     // deriving the next player
     if (nextPlayerTurn) {
