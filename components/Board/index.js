@@ -7,6 +7,7 @@ import { Pawn } from "../Pawn";
 import { AnimateSharedLayout } from "framer-motion";
 import { useSelector } from "react-redux";
 import { PlayerCard } from "../PlayerCard";
+import { gameStatuses } from "../../modules/store/game/reducer";
 
 const sharedCardStyles = css`
   box-shadow: rgba(0, 0, 0, 0.2) 0px 3px 1px -2px,
@@ -50,14 +51,15 @@ export const Board = () => {
   const currentPlayerIndex = useSelector(
     (state) => state.gameReducer.currentPlayerIndex
   );
-  const gameContinues = useSelector((state) => state.gameReducer.gameContinues);
-
+  const gameStatus = useSelector((state) => state.gameReducer.status);
   return (
     <AnimateSharedLayout>
       <Row fullWidth position="center" textAlign="center">
         <Col lg={6}>
           <h2>
-            {gameContinues ? `PLAYER: ${currentPlayerIndex}` : "GAME OVER"}
+            {gameStatus === gameStatuses.GAME_IS_OVER
+              ? "GAME OVER"
+              : `PLAYER: ${currentPlayerIndex + 1}`}
           </h2>
         </Col>
       </Row>

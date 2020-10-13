@@ -11,11 +11,13 @@ import { gameReducer } from "./game/reducer";
 import { firebaseApp$ } from "./firebase/config";
 import { startAuthListenerEpic } from "./auth/epics";
 import { userLoginStartEpic } from "./loginWithGoogle/epics";
+import { gameEpic } from "./game/epics";
 
 const rootEpic = combineEpics(
   startLoadingFirebaseEpic,
   startAuthListenerEpic,
-  userLoginStartEpic
+  userLoginStartEpic,
+  gameEpic
 );
 
 const rootReducer = combineReducers({

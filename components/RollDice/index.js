@@ -1,27 +1,22 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import { DiceStyles } from "./rollDice.styles";
-import { useDispatch } from "react-redux";
-import { pawnMovement } from "../../modules/store/game/reducer";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  gameStatuses,
+  resetGame,
+  startPawnMovement,
+} from "../../modules/store/game/reducer";
 
 const useRollDice = () => {
   const dispatch = useDispatch();
   const [rollNumber, setRollNumber] = useState(null);
-  const [disabled, toggleDisability] = useState(false);
 
   function rollDice() {
-    toggleDisability(!disabled);
     const roll = getRandomNumber();
     toggleClasses(document.querySelector(".die-list"));
     setRollNumber(roll);
 
-    [...Array(roll)].forEach((_, index) => {
-      const nextPlayerTurn = Boolean(index + 1 === roll);
-      //todo not settimeout but wait before execution
-      setTimeout(() => {
-        dispatch(pawnMovement({ nextPlayerTurn }));
-      }, 1000);
-      toggleDisability(!!disabled);
-    });
+    dispatch(startPawnMovement({ roll }));
   }
 
   function toggleClasses(die) {
@@ -34,21 +29,31 @@ const useRollDice = () => {
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
-  return { rollNumber, rollDice, disabled };
+  return { rollNumber, rollDice };
 };
 
 export const RollDice = () => {
-  const { rollNumber, rollDice, disabled } = useRollDice();
+  const dispatch = useDispatch();
+
+  const { rollNumber, rollDice } = useRollDice();
+  const gameStatus = useSelector((state) => state.gameReducer.status);
+
+  const handleRollDice = () => {
+    if (gameStatus === gameStatuses.NEUTRAL) {
+      return rollDice();
+    }
+    if (window.confirm("Game is over. Want to start over?")) {
+      dispatch(resetGame());
+    }
+  };
+  const isButtonDisabled =
+    gameStatus === gameStatuses.PLAYER_IS_MOVING ||
+    gameStatus === gameStatuses.GAME_IS_OVER;
 
   return (
     <DiceStyles>
-      <button onClick={rollDice} disabled={disabled}>
-        <ol
-          className="die-list even-roll"
-          data-roll={rollNumber}
-          id="die-1"
-          style={{ cursor: disabled ? "wait" : "pointer" }}
-        >
+      <button onClick={handleRollDice} disabled={isButtonDisabled}>
+        <ol className="die-list even-roll" data-roll={rollNumber} id="die-1">
           <li className="die-item" data-side="1">
             <span className="dot" />
           </li>
