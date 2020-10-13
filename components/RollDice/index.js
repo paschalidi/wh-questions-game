@@ -6,6 +6,7 @@ import {
   resetGame,
   startPawnMovement,
 } from "../../modules/store/game/reducer";
+import { current } from "@reduxjs/toolkit";
 
 const useRollDice = () => {
   const dispatch = useDispatch();
@@ -53,7 +54,12 @@ export const RollDice = () => {
   return (
     <DiceStyles>
       <button onClick={handleRollDice} disabled={isButtonDisabled}>
-        <ol className="die-list even-roll" data-roll={rollNumber} id="die-1">
+        <ol
+          className="die-list even-roll"
+          data-roll={rollNumber}
+          id="die-1"
+          style={isButtonDisabled ? { cursor: "wait" } : { cursor: "pointer" }}
+        >
           <li className="die-item" data-side="1">
             <span className="dot" />
           </li>

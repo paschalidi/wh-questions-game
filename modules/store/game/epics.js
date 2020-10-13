@@ -1,6 +1,18 @@
 import { ofType } from "redux-observable";
-import { concatMap, delay, flatMap, map, pluck } from "rxjs/operators";
-import { gameOver, pawnMovement, startPawnMovement } from "./reducer";
+import {
+  concatMap,
+  delay,
+  flatMap,
+  map,
+  pluck,
+  startWith,
+} from "rxjs/operators";
+import {
+  gameOver,
+  pawnMovement,
+  startPawnMovement,
+  disableRoll,
+} from "./reducer";
 import { of, range } from "rxjs";
 
 const deriveNextPlayerIndex = (currentPlayerIndex, allPlayers) => {
@@ -35,8 +47,8 @@ export const gameEpic = (action$, state$) =>
             : currentPlayerIndex;
 
           return pawnMovement({ nextPlayerTurn, nextPlayerIndex });
-        })
-        // startWith(disableRoll())
+        }),
+        startWith(disableRoll())
       )
     )
   );
