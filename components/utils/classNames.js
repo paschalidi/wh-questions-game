@@ -1,10 +1,10 @@
-export default function(...args) {
-  return args.reduce((prev, index) => {
-    const [className, condition] = index;
+export default function (...args) {
+    return args.reduce((prev, index) => {
+        const [className, condition] = index
 
-    if (condition) {
-      return `${className} ${prev}`;
-    }
-    return prev;
-  }, "");
+        if (condition) {
+            return `${className} ${prev}`
+        }
+        return prev
+    }, '')
 }
