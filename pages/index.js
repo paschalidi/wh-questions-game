@@ -8,6 +8,7 @@ import { Col } from '../components/Grid/Col'
 import { Button } from '../components/Button'
 import styled from 'styled-components'
 import { GoogleIcon } from '../components/svgs/GoogleIcon'
+import { Clouds } from '../components/Clouds'
 
 const GoogleButton = styled(Button)`
     margin: 0 auto;
@@ -32,7 +33,9 @@ export default function Home({}) {
             )}
             {authStatus === authStatuses.NOT_LOGGED_IN && (
                 <Row fullWidth>
-                    <Col lg={8}></Col>
+                    <Col lg={8}>
+                        <Clouds />
+                    </Col>
                     <Col
                         lg={4}
                         style={{
