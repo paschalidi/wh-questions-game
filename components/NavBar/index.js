@@ -15,28 +15,29 @@ const NavBarStyles = styled.div`
 
 export const NavBar = () => {
   const { isAuth } = useIsAuthenticated();
-  if (!isAuth) return <div />;
 
   return (
     <NavBarStyles>
-      <Row verticalAlign="middle" textAlign="center">
-        <Col lg={1}>
-          <Link href="/">
-            <Button type="no-border">Home</Button>
-          </Link>
-        </Col>
+      {isAuth && (
+        <Row verticalAlign="middle" textAlign="center">
+          <Col lg={1}>
+            <Button type="no-border">
+              <Link href="/">Home</Link>
+            </Button>
+          </Col>
 
-        <Col offset={9} lg={1}>
-          <Link href="/game">
-            <Button type="secondary">Play</Button>
-          </Link>
-        </Col>
-        <Col lg={1}>
-          <Link href="/">
-            <Button type="no-border">Logout</Button>
-          </Link>
-        </Col>
-      </Row>
+          <Col offset={9} lg={1}>
+            <Button type="secondary">
+              <Link href="/players">Play</Link>
+            </Button>
+          </Col>
+          <Col lg={1}>
+            <Button type="no-border">
+              <Link href="/">Logout</Link>
+            </Button>
+          </Col>
+        </Row>
+      )}
     </NavBarStyles>
   );
 };

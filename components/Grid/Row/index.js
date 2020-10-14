@@ -22,7 +22,7 @@ export function Row({
 }) {
   const height = classNames([
     "inherited-height",
-    verticalAlign === "middle" || "bottom",
+    verticalAlign === ("middle" || "bottom"),
   ]);
 
   const row = classNames(

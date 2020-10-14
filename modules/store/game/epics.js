@@ -21,8 +21,8 @@ const deriveNextPlayerIndex = (currentPlayerIndex, allPlayers) => {
   const secondHalf = listOfPlayers.splice(-(currentPlayerIndex + 1));
   const allPlayersSorted = [...secondHalf, ...firstHalf];
 
-  const { index } = allPlayersSorted.find(({ steps }) => steps < 19) || {};
-  return index;
+  const { playerId } = allPlayersSorted.find(({ steps }) => steps < 19) || {};
+  return playerId;
 };
 
 const deriveGameOver = (allPlayers) =>

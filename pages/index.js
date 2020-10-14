@@ -13,6 +13,8 @@ const GoogleButton = styled(Button)`
   font-size: 16px !important;
   font-weight: 200;
   line-height: 0.9rem !important;
+
+  
 `;
 
 export default function Home({}) {

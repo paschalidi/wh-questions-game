@@ -13,6 +13,7 @@ export function Col({
   offsetSm,
   offsetXs,
   style,
+  square,
 }) {
   const column = classNames(
     [`col-lg-${lg} col-lg-offset-${offset}`, true],
@@ -21,7 +22,8 @@ export function Col({
     [`col-md-${md}`, md],
     [`col-xs-offset-${offsetXs}`, offsetXs],
     [`col-sm-offset-${offsetSm}`, offsetSm],
-    [`col-md-offset-${offsetMd}`, offsetMd]
+    [`col-md-offset-${offsetMd}`, offsetMd],
+    [`col-height-lg-${lg}`, square]
   );
 
   return (
