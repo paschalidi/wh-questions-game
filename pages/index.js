@@ -1,8 +1,8 @@
+import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { userLoginStart } from '../modules/store/loginWithGoogle/actions'
 import { authStatuses } from '../modules/store/auth/reducer'
 import { Loading } from '../components/Loading'
-import { Clouds } from '../components/Clouds'
 import { Row } from '../components/Grid/Row'
 import { Col } from '../components/Grid/Col'
 import { Button } from '../components/Button'
@@ -10,9 +10,12 @@ import styled from 'styled-components'
 import { GoogleIcon } from '../components/svgs/GoogleIcon'
 
 const GoogleButton = styled(Button)`
+    margin: 0 auto;
+
     font-size: 16px !important;
     font-weight: 200;
     line-height: 0.9rem !important;
+    padding: 0.6rem 2rem;
 `
 
 export default function Home({}) {
@@ -20,7 +23,6 @@ export default function Home({}) {
     const authStatus = useSelector(state => state.authReducer.authStatus)
     const displayName = useSelector(state => state.authReducer.user.displayName)
 
-    if (authStatus === authStatuses.LOADING) return <Loading />
     return (
         <>
             {authStatus === authStatuses.LOGGED_IN && (
@@ -30,9 +32,7 @@ export default function Home({}) {
             )}
             {authStatus === authStatuses.NOT_LOGGED_IN && (
                 <Row fullWidth>
-                    <Col lg={8}>
-                        <Clouds />
-                    </Col>
+                    <Col lg={8}></Col>
                     <Col
                         lg={4}
                         style={{
@@ -42,8 +42,10 @@ export default function Home({}) {
                         }}
                     >
                         <Row verticalAlign="middle" position="center">
-                            <Col lg={0}>
+                            <Col offset={2} lg={8}>
+                                <h1>Welcome to the questions game</h1>
                                 <GoogleButton
+                                    style={{ padding: '0.6rem 2rem' }}
                                     type="white"
                                     onClick={() => dispatch(userLoginStart())}
                                 >
@@ -51,7 +53,9 @@ export default function Home({}) {
                                         <GoogleIcon />
                                     </span>
                                     <span className="abcRioButtonContents">
-                                        <span>Sign in with Google</span>
+                                        <span style={{ paddingLeft: 10 }}>
+                                            Sign in with Google
+                                        </span>
                                     </span>
                                 </GoogleButton>
                             </Col>
@@ -59,7 +63,6 @@ export default function Home({}) {
                     </Col>
                 </Row>
             )}
-            <h3>Welcome to the game you always looking for</h3>
         </>
     )
 }

@@ -6,16 +6,17 @@ import useDimensions from 'react-use-dimensions'
 import { Pawn } from '../Pawn'
 import { useSelector } from 'react-redux'
 import { gameStatuses } from '../../modules/store/game/reducer'
+import { RainbowIcon } from '../svgs/RainbowIcon'
 
 const sharedCardStyles = css`
-    box-shadow: 20px 10px 15px hsla(0, 0%, 50%, 0.5);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
     height: 8vw;
     border-radius: 2px;
     border: 2px solid;
 `
 export const BoardStyles = styled.div`
     padding: 12px;
-    border: 2px solid #7400b8;
+    border: 2px solid #9475ff;
     background: #dabfff;
     border-radius: 2px;
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.45);
@@ -196,7 +197,9 @@ export const Board = () => {
                                         textAlign="center"
                                         verticalAlign="middle"
                                     >
-                                        <Col>FINISH TILE</Col>
+                                        <Col>
+                                            <RainbowIcon />
+                                        </Col>
                                     </Row>
                                 </CardWhite>
                             </Col>
