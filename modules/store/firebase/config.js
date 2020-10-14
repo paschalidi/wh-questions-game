@@ -21,6 +21,7 @@ export const lazyLoadFireBase = (config = CONFIG) => {
         map(([firebase]) => {
             const app = firebase.initializeApp(config)
             app.firestore().performance()
+            app.firestore().analytics()
             app.firestore().enablePersistence()
             return app
         }),
