@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react'
 
-import { useIsAuthenticated } from './hooks/useIsAuthenticated'
+import { useIsAuthenticated } from '../modules/hooks/useIsAuthenticated'
 import { Row } from '../components/Grid/Row'
 import { Col } from '../components/Grid/Col'
 import styled from 'styled-components'

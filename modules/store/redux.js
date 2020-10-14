@@ -1,7 +1,6 @@
 import {
     configureStore as toolkitConfigureStore,
     combineReducers,
-    getDefaultMiddleware,
 } from '@reduxjs/toolkit'
 import { createEpicMiddleware, combineEpics } from 'redux-observable'
 import { startLoadingFirebaseEpic } from './firebase/epics'
@@ -26,25 +25,14 @@ const rootReducer = combineReducers({
     gameReducer,
 })
 
-const [
-    ,
-    immutableStateInvariant,
-    serializableStateInvariant,
-] = getDefaultMiddleware()
-
 const epicMiddleware = createEpicMiddleware({
     dependencies: { firebase: firebaseApp$ },
 })
 
-const middleware = [
-    immutableStateInvariant,
-    serializableStateInvariant,
-    epicMiddleware,
-]
-
 const store = toolkitConfigureStore({
     reducer: rootReducer,
-    middleware,
+    middleware: getDefaultMiddleware =>
+        getDefaultMiddleware().concat(epicMiddleware),
     devTools: true,
 })
 

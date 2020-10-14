@@ -1,7 +1,7 @@
-import { useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { useSelector } from 'react-redux'
-import { authStatuses } from '../../modules/store/auth/reducer'
+import { authStatuses } from '../store/auth/reducer'
 
 export const useIsAuthenticated = () => {
     const router = useRouter()
