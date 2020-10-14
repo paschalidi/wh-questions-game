@@ -6,7 +6,6 @@ import {
   resetGame,
   startPawnMovement,
 } from "../../modules/store/game/reducer";
-import { current } from "@reduxjs/toolkit";
 
 const useRollDice = () => {
   const dispatch = useDispatch();

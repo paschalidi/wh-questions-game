@@ -8,26 +8,26 @@ const ButtonStyles = styled.div`
   }
 
   button {
-    font-size: 1.6rem;
+    font-size: 16px;
+    background-color: rgba(0, 118, 255, 0.9);
+    color: #fff;
+    padding: 0.25rem 1rem;
+    margin: 0;
+    border-radius: 7px;
     display: flex;
+    line-height: 1.65;
     align-items: center;
     justify-content: space-evenly;
     cursor: pointer;
     font-weight: 400;
-    line-height: 1.9rem;
     transition: background-color ease 0.2s;
-    height: 50px;
-    min-width: 200px;
-    box-shadow: rgba(0, 0, 0, 0.12) 0px 5px 10px 0px;
-    padding: 0;
-    border-radius: 5px;
-    text-decoration: none;
+    outline: none;
   }
 
   .primary {
     color: ${colors.white};
     background-color: ${colors.primary};
-    border: 0;
+    border: 1px solid ${colors.primary};
 
     i {
       font-size: 1.5em;
@@ -36,6 +36,7 @@ const ButtonStyles = styled.div`
     &:hover {
       top: -4px;
       box-shadow: 0 30px 60px rgba(0, 0, 0, 0.12);
+      border: 1px solid ${colors.active};
       background-color: ${colors.active};
     }
 
@@ -63,6 +64,60 @@ const ButtonStyles = styled.div`
     &:active {
       color: ${colors.primary};
       background-color: ${colors.white};
+      border: 1px solid ${colors.primary};
+    }
+
+    &:disabled {
+      color: ${colors.white};
+      background-color: ${colors.secondary};
+      border: 1px solid ${colors.secondary};
+    }
+  }
+
+  .white {
+    box-sizing: border-box;
+    color: ${colors.primary};
+    border: 1px solid ${colors.primary};
+    background-color: ${colors.white};
+
+    i {
+      font-size: 1.4em;
+    }
+
+    &:focus {
+      outline: 0;
+    }
+
+    &:hover,
+    &:active {
+      color: ${colors.white};
+      background-color: ${colors.primary};
+      border: 1px solid ${colors.primary};
+    }
+
+    &:disabled {
+      color: ${colors.white};
+      background-color: ${colors.secondary};
+      border: 1px solid ${colors.secondary};
+    }
+  }
+
+  .no-border {
+    box-sizing: border-box;
+    color: ${colors.primary};
+    border: 1px solid transparent;
+    background-color: ${colors.white};
+
+    i {
+      font-size: 1.4em;
+    }
+
+    &:focus {
+      outline: 0;
+    }
+
+    &:hover,
+    &:active {
       border: 1px solid ${colors.primary};
     }
 

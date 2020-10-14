@@ -33,7 +33,7 @@ Button.propTypes = {
   children: PropTypes.node.isRequired,
   id: PropTypes.string,
   onClick: PropTypes.func,
-  type: PropTypes.oneOf(["primary", "secondary"]),
+  type: PropTypes.oneOf(["primary", "secondary", "white", "no-border"]),
   htmlType: PropTypes.oneOf(["button", "submit", "reset"]),
   style: PropTypes.shape({}),
   disabled: PropTypes.bool,

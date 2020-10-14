@@ -13,4 +13,6 @@ export const useIsAuthenticated = () => {
       router.push("/");
     }
   });
+
+  return { isAuth: Boolean(authStatus === authStatuses.LOGGED_IN) };
 };

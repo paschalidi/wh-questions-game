@@ -17,7 +17,7 @@ export const DiceStyles = styled.div`
   grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
   grid-template-rows: auto;
   justify-items: center;
-  padding: 2rem;
+  padding: 1.2rem;
   perspective: 600px;
 
   .die-list {

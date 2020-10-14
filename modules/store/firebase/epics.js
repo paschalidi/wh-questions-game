@@ -5,16 +5,14 @@ import {
   startLoadingFirebase,
 } from "./actions";
 import { catchError, flatMap, switchMap, tap } from "rxjs/operators";
-import { CONFIG, lazyLoadFireBase } from "./config";
-import { concat, empty, of } from "rxjs";
+import { lazyLoadFireBase } from "./config";
+import { concat, of } from "rxjs";
 import { startAuthListener } from "../auth/actions";
 
 export const startLoadingFirebaseEpic = (action$, state$, { firebase }) =>
   action$.pipe(
-    ofType(startLoadingFirebase.type),
-    flatMap(() => {
-      return lazyLoadFireBase(CONFIG);
-    }),
+    ofType(startLoadingFirebase),
+    flatMap(() => lazyLoadFireBase()),
     tap((app) => {
       firebase.next(app);
     }),

@@ -1,10 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import { Row } from "../Grid/Row";
 import { Col } from "../Grid/Col";
 import styled, { css } from "styled-components";
 import useDimensions from "react-use-dimensions";
 import { Pawn } from "../Pawn";
-import { AnimateSharedLayout } from "framer-motion";
 import { useSelector } from "react-redux";
 import { PlayerCard } from "../PlayerCard";
 import { gameStatuses } from "../../modules/store/game/reducer";
@@ -53,7 +52,7 @@ export const Board = () => {
   );
   const gameStatus = useSelector((state) => state.gameReducer.status);
   return (
-    <AnimateSharedLayout>
+    <>
       <Row fullWidth position="center" textAlign="center">
         <Col lg={6}>
           <h2>
@@ -102,45 +101,39 @@ export const Board = () => {
 
             <Row fullWidth>
               <Col lg={2} offset={10}>
-                <CardGreen />
+                <CardYellow />
               </Col>
             </Row>
 
             <Row fullWidth>
               <Col lg={2}>
+                <CardYellow />
+              </Col>
+              <Col lg={2}>
                 <CardGreen />
               </Col>
               <Col lg={2}>
                 <CardRed />
-              </Col>
-              <Col lg={2}>
-                <CardGreen />
               </Col>
               <Col lg={2}>
                 <CardYellow />
               </Col>
               <Col lg={2}>
-                <CardRed />
+                <CardGreen />
               </Col>
               <Col lg={2}>
-                <CardGreen />
+                <CardRed />
               </Col>
             </Row>
 
             <Row fullWidth>
               <Col lg={2}>
-                <CardGreen />
+                <CardRed />
               </Col>
             </Row>
 
             <Row fullWidth textAlign="center">
               <Col lg={2}>
-                <CardRed />
-              </Col>
-              <Col lg={2}>
-                <CardYellow />
-              </Col>
-              <Col lg={2}>
                 <CardGreen />
               </Col>
               <Col lg={2}>
@@ -148,6 +141,12 @@ export const Board = () => {
               </Col>
               <Col lg={2}>
                 <CardRed />
+              </Col>
+              <Col lg={2}>
+                <CardGreen />
+              </Col>
+              <Col lg={2}>
+                <CardYellow />
               </Col>
               <Col lg={2}>
                 <CardWhite>
@@ -162,6 +161,6 @@ export const Board = () => {
           </BoardStyles>
         </Col>
       </Row>
-    </AnimateSharedLayout>
+    </>
   );
 };
