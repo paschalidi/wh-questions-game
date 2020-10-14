@@ -5,26 +5,26 @@ import styled, { css } from 'styled-components'
 import useDimensions from 'react-use-dimensions'
 import { Pawn } from '../Pawn'
 import { useSelector } from 'react-redux'
-import { PlayerCard } from '../PlayerCard'
 import { gameStatuses } from '../../modules/store/game/reducer'
 
 const sharedCardStyles = css`
-    box-shadow: rgba(0, 0, 0, 0.2) 0px 3px 1px -2px,
-        rgba(0, 0, 0, 0.14) 0px 2px 2px 0px, rgba(0, 0, 0, 0.12) 0px 1px 5px 0px;
+    box-shadow: 20px 10px 15px hsla(0, 0%, 50%, 0.5);
     height: 8vw;
     border-radius: 2px;
     border: 2px solid;
 `
 export const BoardStyles = styled.div`
     padding: 12px;
-    border: 2px solid #9336fd;
+    border: 2px solid #7400b8;
     background: #dabfff;
     border-radius: 2px;
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.45);
+    margin-bottom: 10vh;
 `
 const CardWhite = styled.div`
+    font-size: 2vw;
     ${sharedCardStyles}
-    color: #9336fd;
+    color: #7400b8;
     background-color: #f1f1f1;
     border: 2px solid #d3d3d3;
 `
@@ -44,38 +44,45 @@ const CardRed = styled.div`
     background-color: #e71d36;
     border-color: #f94144;
 `
+const H1 = styled.h1`
+    color: ${({ isPlaying }) => (isPlaying ? '#06d6a0' : 'white')};
+`
 
+const capitalize = s => {
+    if (typeof s !== 'string') return ''
+    return s.charAt(0).toUpperCase() + s.slice(1)
+}
 export const Board = () => {
     const [ref, { width: stepSize }] = useDimensions()
-    const name = useSelector(state => {
-        const { playingPlayerId, allPlayers } = state.gameReducer
-
-        return allPlayers[playingPlayerId].name
-    })
-
     const gameStatus = useSelector(state => state.gameReducer.status)
-
     const allPlayers = useSelector(state => state.gameReducer.allPlayers)
+    const playingPlayerId = useSelector(
+        state => state.gameReducer.playingPlayerId
+    )
     return (
         <>
             <Row fullWidth position="center" textAlign="center">
                 <Col lg={6}>
-                    <h2>
-                        {gameStatus === gameStatuses.GAME_IS_OVER
-                            ? 'GAME OVER'
-                            : `${name} is playing!`}
-                    </h2>
+                    <h1>
+                        {gameStatus === gameStatuses.GAME_IS_OVER &&
+                            'GAME OVER'}
+                    </h1>
                 </Col>
             </Row>
             <Row fullWidth>
                 <Col offset={1} lg={2}>
                     <Row fullWidth>
-                        <Col lg={11} style={{ marginBottom: 10 }}>
-                            <PlayerCard playerId="ONE" />
-                        </Col>
-                        <Col lg={11}>
-                            <PlayerCard playerId="TWO" />
-                        </Col>
+                        {Object.values(allPlayers).map(({ name, playerId }) => (
+                            <Col
+                                key={playerId}
+                                lg={11}
+                                style={{ marginBottom: 10 }}
+                            >
+                                <H1 isPlaying={playingPlayerId === playerId}>
+                                    {capitalize(name)}
+                                </H1>
+                            </Col>
+                        ))}
                     </Row>
                 </Col>
                 <Col lg={6}>
@@ -83,11 +90,27 @@ export const Board = () => {
                         <Row fullWidth textAlign="center">
                             <Col lg={2}>
                                 <CardWhite ref={ref}>
-                                    <Row fullWidth textAlign="center">
+                                    <Row
+                                        fullWidth
+                                        textAlign="center"
+                                        position="center"
+                                    >
                                         {Object.values(allPlayers).map(
                                             ({ playerId, icon }) => {
+                                                const length = Object.values(
+                                                    allPlayers
+                                                ).length
+                                                const lengthTypes = {
+                                                    2: 7,
+                                                    3: 7,
+                                                    4: 6,
+                                                    5: 6,
+                                                }
                                                 return (
-                                                    <Col key={playerId} lg={6}>
+                                                    <Col
+                                                        key={playerId}
+                                                        lg={lengthTypes[length]}
+                                                    >
                                                         <Pawn
                                                             stepSize={stepSize}
                                                             playerId={playerId}
@@ -173,9 +196,7 @@ export const Board = () => {
                                         textAlign="center"
                                         verticalAlign="middle"
                                     >
-                                        <Col>
-                                            <h1>FINISH</h1>
-                                        </Col>
+                                        <Col>FINISH TILE</Col>
                                     </Row>
                                 </CardWhite>
                             </Col>
