@@ -1,7 +1,12 @@
 import styled from 'styled-components'
 
 export const DiceStyles = styled.div`
+    display: grid;
+    justify-items: center;
+    padding: 1.2rem;
+
     button {
+        outline: none;
         background: transparent !important;
         background-color: transparent !important;
         border: none !important;
@@ -11,23 +16,12 @@ export const DiceStyles = styled.div`
         pointer: wait;
     }
 
-    align-items: center;
-    display: grid;
-    grid-gap: 2rem;
-    grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
-    grid-template-rows: auto;
-    justify-items: center;
-    padding: 1.2rem;
-    perspective: 600px;
-
     .die-list {
         display: grid;
         grid-template-columns: 1fr;
         grid-template-rows: 1fr;
-        height: 6rem;
         list-style-type: none;
         transform-style: preserve-3d;
-        width: 6rem;
     }
     .even-roll {
         transition: transform 1.5s ease-out;
@@ -49,7 +43,7 @@ export const DiceStyles = styled.div`
         grid-template-columns: repeat(3, 1fr);
         grid-template-rows: repeat(3, 1fr);
         height: 100%;
-        padding: 1rem;
+        padding: 1.17rem;
         width: 100%;
     }
     .dot {
@@ -178,20 +172,6 @@ export const DiceStyles = styled.div`
     }
     [data-side='6'] .dot:nth-of-type(6) {
         grid-area: nine;
-    }
-
-    button {
-        align-self: center;
-        background-color: #efefef;
-        border: none;
-        color: #333;
-        font-size: 1.25rem;
-        font-weight: 700;
-        justify-self: center;
-        padding: 0.5rem 1rem;
-    }
-    button:hover {
-        cursor: pointer;
     }
 
     @media (min-width: 900px) {

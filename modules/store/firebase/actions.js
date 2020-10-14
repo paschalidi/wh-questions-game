@@ -1,11 +1,11 @@
-import { createAction } from "@reduxjs/toolkit";
+import { createAction } from '@reduxjs/toolkit'
 
 export const startLoadingFirebase = createAction(
-  "[firebase] start loading firebase"
-);
+    '[firebase] start loading firebase'
+)
 export const errorLoadingFirebase = createAction(
-  "[firebase] error loading firebase"
-);
+    '[firebase] error loading firebase'
+)
 export const completeLoadingFirebase = createAction(
-  "[firebase]complete loading firebase"
-);
+    '[firebase]complete loading firebase'
+)

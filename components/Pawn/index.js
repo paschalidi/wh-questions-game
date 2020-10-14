@@ -4,12 +4,13 @@ import { useSelector } from 'react-redux'
 import { Motion, spring } from 'react-motion'
 
 const PawnStyles = styled.div`
-    background: #ff006e;
-    height: 25px;
-    width: 25px;
+    margin: 0 auto;
+    font-size: 3.5vw;
+    height: 2.6vw;
+    width: 2.6vw;
+    line-height: 1.5rem;
     border-radius: 50%;
     color: white;
-    border: 2px purple solid;
 `
 
 const MAX_POSSIBLE_STEPS = 19
@@ -75,7 +76,7 @@ const movementMappedOnSteps = (steps = 0, stepSize = 0) => {
     }
 }
 
-export const Pawn = ({ stepSize, playerId }) => {
+export const Pawn = ({ stepSize, playerId, icon }) => {
     const steps = useSelector(
         state => state.gameReducer.allPlayers[playerId].steps
     )
@@ -94,7 +95,9 @@ export const Pawn = ({ stepSize, playerId }) => {
                             WebkitTransform: `translate3d(${x}px, ${y}px, 0)`,
                             transform: `translate3d(${x}px, ${y}px, 0)`,
                         }}
-                    />
+                    >
+                        {icon}
+                    </PawnStyles>
                 )
             }}
         </Motion>

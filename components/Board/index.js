@@ -47,9 +47,12 @@ const CardRed = styled.div`
 
 export const Board = () => {
     const [ref, { width: stepSize }] = useDimensions()
-    const currentPlayerIndex = useSelector(
-        state => state.gameReducer.currentPlayerIndex
-    )
+    const name = useSelector(state => {
+        const { playingPlayerId, allPlayers } = state.gameReducer
+
+        return allPlayers[playingPlayerId].name
+    })
+
     const gameStatus = useSelector(state => state.gameReducer.status)
 
     const allPlayers = useSelector(state => state.gameReducer.allPlayers)
@@ -60,7 +63,7 @@ export const Board = () => {
                     <h2>
                         {gameStatus === gameStatuses.GAME_IS_OVER
                             ? 'GAME OVER'
-                            : `PLAYER: ${currentPlayerIndex + 1}`}
+                            : `${name} is playing!`}
                     </h2>
                 </Col>
             </Row>
@@ -80,18 +83,21 @@ export const Board = () => {
                         <Row fullWidth textAlign="center">
                             <Col lg={2}>
                                 <CardWhite ref={ref}>
-                                    {Object.keys(allPlayers).map(
-                                        ({ id, icon }) => {
-                                            return (
-                                                <Pawn
-                                                    key={id}
-                                                    stepSize={stepSize}
-                                                    playerId={id}
-                                                    icon={icon}
-                                                />
-                                            )
-                                        }
-                                    )}
+                                    <Row fullWidth textAlign="center">
+                                        {Object.values(allPlayers).map(
+                                            ({ playerId, icon }) => {
+                                                return (
+                                                    <Col key={playerId} lg={6}>
+                                                        <Pawn
+                                                            stepSize={stepSize}
+                                                            playerId={playerId}
+                                                            icon={icon}
+                                                        />
+                                                    </Col>
+                                                )
+                                            }
+                                        )}
+                                    </Row>
                                 </CardWhite>
                             </Col>
                             <Col lg={2}>
