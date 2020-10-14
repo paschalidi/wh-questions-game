@@ -1,42 +1,42 @@
 {
-  "name": "wh-questions",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start"
-  },
-  "dependencies": {
-    "@dhis2/cli-style": "^7.2.0",
-    "@reduxjs/toolkit": "^1.4.0",
-    "firebase": "^7.23.0",
-    "next": "9.5.5",
-    "react": "16.13.1",
-    "react-animejs": "^0.5.4",
-    "react-dom": "16.13.1",
-    "react-flexbox-grid": "^2.1.2",
-    "react-motion": "^0.5.2",
-    "react-redux": "^7.2.1",
-    "react-transition-group": "^4.4.1",
-    "react-use-dimensions": "^1.2.1",
-    "reakit": "^1.2.5",
-    "redux-observable": "^1.2.0",
-    "rxfire": "^3.13.5",
-    "rxjs": "^6.6.3",
-    "styled-components": "^5.2.0"
-  },
-  "devDependencies": {
-    "babel-eslint": "^10.0.1",
-    "babel-plugin-styled-components": "^1.11.1",
-    "eslint": "^7.11.0",
-    "eslint-config-airbnb": "^18.2.0",
-    "eslint-config-prettier": "^6.12.0",
-    "eslint-plugin-import": "^2.22.1",
-    "eslint-plugin-jsx-a11y": "^6.3.1",
-    "eslint-plugin-prettier": "^3.1.4",
-    "eslint-plugin-react": "^7.21.4",
-    "eslint-plugin-react-hooks": "^4.0.2",
-    "prettier": "^2.1.2"
-  }
+    "name": "wh-questions",
+    "version": "0.1.0",
+    "private": true,
+    "scripts": {
+        "dev": "next dev",
+        "build": "next build",
+        "start": "next start"
+    },
+    "dependencies": {
+        "@dhis2/cli-style": "^7.2.0",
+        "@reduxjs/toolkit": "^1.4.0",
+        "firebase": "^7.23.0",
+        "next": "9.5.5",
+        "react": "16.13.1",
+        "react-animejs": "^0.5.4",
+        "react-dom": "16.13.1",
+        "react-flexbox-grid": "^2.1.2",
+        "react-motion": "^0.5.2",
+        "react-redux": "^7.2.1",
+        "react-transition-group": "^4.4.1",
+        "react-use-dimensions": "^1.2.1",
+        "reakit": "^1.2.5",
+        "redux-observable": "^1.2.0",
+        "rxfire": "^3.13.5",
+        "rxjs": "^6.6.3",
+        "styled-components": "^5.2.0"
+    },
+    "devDependencies": {
+        "babel-eslint": "^10.0.1",
+        "babel-plugin-styled-components": "^1.11.1",
+        "eslint": "^7.11.0",
+        "eslint-config-airbnb": "^18.2.0",
+        "eslint-config-prettier": "^6.12.0",
+        "eslint-plugin-import": "^2.22.1",
+        "eslint-plugin-jsx-a11y": "^6.3.1",
+        "eslint-plugin-prettier": "^3.1.4",
+        "eslint-plugin-react": "^7.21.4",
+        "eslint-plugin-react-hooks": "^4.0.2",
+        "prettier": "^2.1.2"
+    }
 }
