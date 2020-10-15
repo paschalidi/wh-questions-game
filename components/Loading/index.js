@@ -2,8 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 
 const Styles = styled.div`
-    @import url('https://fonts.googleapis.com/css?family=Roboto:100,300,400&display=swap');
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto', sans-serif !important;
     font-size: 1rem;
     line-height: 1.5;
     display: -webkit-box;

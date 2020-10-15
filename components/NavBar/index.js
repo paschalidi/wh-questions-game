@@ -4,7 +4,6 @@ import { Col } from '../Grid/Col'
 import styled from 'styled-components'
 import { useIsAuthenticated } from '../../modules/hooks/useIsAuthenticated'
 import Link from 'next/link'
-import { Button } from '../Button'
 import { colors } from '../utils/colors'
 
 const NavBarStyles = styled.div`
@@ -25,6 +24,7 @@ const NavBarStyles = styled.div`
         cursor: pointer;
         font-weight: 400;
         transition: background-color ease 0.2s;
+        transition: border ease 0.2s;
         outline: none;
     }
 
@@ -65,7 +65,6 @@ const NavBarStyles = styled.div`
 
         &:hover {
             top: -4px;
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.12);
             border: 1px solid ${colors.active};
             background-color: ${colors.active};
         }
@@ -97,12 +96,12 @@ export const NavBar = () => {
                         </Link>
                     </Col>
 
-                    <Col offset={9} lg={1}>
+                    <Col offset={8} lg={1}>
                         <Link href="/players">
                             <div className="base primary">Play</div>
                         </Link>
                     </Col>
-                    <Col lg={1}>
+                    <Col offset={1} lg={1}>
                         <Link href="/">
                             <div className="base no-border">Logout</div>
                         </Link>
