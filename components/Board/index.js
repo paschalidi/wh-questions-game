@@ -67,7 +67,7 @@ const questions = {
         'What is your favourite food?',
         'What is your favourite fruit?',
         'What is your favourite lesson?',
-        'Who is this?What is your mum’s name?',
+        'What is your mum’s name?',
         'What is the weather like today?',
         'What day is today?',
         'What day was yesterday?',
@@ -82,6 +82,7 @@ const questions = {
         'What is Marianna doing?',
     ],
     green: [
+        'Who is this?',
         'Who are you working with?',
         'Who is your favourite teacher?',
         'Who is your favourite friend?',
