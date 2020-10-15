@@ -1,7 +1,10 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import styled from 'styled-components'
 import { useSelector } from 'react-redux'
 import { Motion, spring } from 'react-motion'
+import Modal from 'react-modal'
+import { gameStatuses } from '../../modules/store/game/reducer'
+import { Button } from '../Button'
 
 const PawnStyles = styled.div`
     margin: 0 auto;
@@ -81,25 +84,30 @@ export const Pawn = ({ stepSize, playerId, icon }) => {
         state => state.gameReducer.allPlayers[playerId].steps
     )
     return (
-        <Motion
-            style={
-                steps < MAX_POSSIBLE_STEPS
-                    ? movementMappedOnSteps(steps, stepSize)
-                    : { x: spring(stepSize * 5), y: spring(stepSize * 4 + 6) }
-            }
-        >
-            {({ x, y }) => {
-                return (
-                    <PawnStyles
-                        style={{
-                            WebkitTransform: `translate3d(${x}px, ${y}px, 0)`,
-                            transform: `translate3d(${x}px, ${y}px, 0)`,
-                        }}
-                    >
-                        {icon}
-                    </PawnStyles>
-                )
-            }}
-        </Motion>
+        <>
+            <Motion
+                style={
+                    steps < MAX_POSSIBLE_STEPS
+                        ? movementMappedOnSteps(steps, stepSize)
+                        : {
+                              x: spring(stepSize * 5),
+                              y: spring(stepSize * 4 + 6),
+                          }
+                }
+            >
+                {({ x, y }) => {
+                    return (
+                        <PawnStyles
+                            style={{
+                                WebkitTransform: `translate3d(${x}px, ${y}px, 0)`,
+                                transform: `translate3d(${x}px, ${y}px, 0)`,
+                            }}
+                        >
+                            {icon}
+                        </PawnStyles>
+                    )
+                }}
+            </Motion>
+        </>
     )
 }

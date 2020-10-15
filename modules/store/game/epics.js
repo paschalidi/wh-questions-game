@@ -9,9 +9,15 @@ import {
 } from 'rxjs/operators'
 import {
     gameOver,
-    pawnMovement,
+    movePawnOneStep,
     startPawnMovement,
     disableRoll,
+    askQuestion,
+    movePawnOneLastStep,
+    openModal,
+    answerCorrect,
+    answerFalse,
+    startNextRound,
 } from './reducer'
 import { of, range } from 'rxjs'
 
@@ -35,8 +41,9 @@ const deriveNextPlayerIndex = (playingPlayerId, allPlayers) => {
     return playerId
 }
 
-const deriveGameOver = allPlayers =>
+const allPlayersReachedMaximumPoints = allPlayers =>
     !Object.values(allPlayers).some(({ steps }) => steps < 19)
+
 export const gameEpic = (action$, state$) =>
     action$.pipe(
         ofType(startPawnMovement),
@@ -44,24 +51,44 @@ export const gameEpic = (action$, state$) =>
         flatMap(({ roll }) =>
             range(0, roll).pipe(
                 concatMap(i => of(i).pipe(delay(400))),
-                map(item => {
-                    const {
-                        allPlayers,
-                        playingPlayerId,
-                    } = state$.value.gameReducer
+                map(rollCounter => {
+                    const { allPlayers } = state$.value.gameReducer
 
-                    if (deriveGameOver(allPlayers)) {
+                    if (allPlayersReachedMaximumPoints(allPlayers)) {
                         return gameOver()
                     }
 
-                    const nextPlayerTurn = roll === item + 1
-                    const nextPlayingPlayerId = nextPlayerTurn
-                        ? deriveNextPlayerIndex(playingPlayerId, allPlayers)
-                        : playingPlayerId
+                    const nextPlayerTurn = roll === rollCounter + 1
 
-                    return pawnMovement({ nextPlayerTurn, nextPlayingPlayerId })
+                    if (!nextPlayerTurn) {
+                        return movePawnOneStep()
+                    }
+
+                    return movePawnOneLastStep()
                 }),
                 startWith(disableRoll())
             )
         )
+    )
+
+export const openModalEpic = action$ =>
+    action$.pipe(
+        ofType(movePawnOneLastStep),
+        delay(600),
+        map(() => {
+            return openModal()
+        })
+    )
+
+export const closeModalEpic = (action$, state$) =>
+    action$.pipe(
+        ofType(answerCorrect, answerFalse),
+        map(() => {
+            const { allPlayers, playingPlayerId } = state$.value.gameReducer
+            const nextPlayingPlayerId = deriveNextPlayerIndex(
+                playingPlayerId,
+                allPlayers
+            )
+            return startNextRound({ nextPlayingPlayerId })
+        })
     )

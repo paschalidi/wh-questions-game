@@ -20,6 +20,44 @@ const GoogleButton = styled(Button)`
     padding: 0.6rem 2rem;
 `
 
+const Wave = styled.span`
+    animation-name: wave-animation; /* Refers to the name of your @keyframes element below */
+    animation-duration: 2.5s; /* Change to speed up or slow down */
+    animation-iteration-count: 10s; /* Never stop waving :) */
+    transform-origin: 70% 70%; /* Pivot around the bottom-left palm */
+    display: inline-block;
+
+    @keyframes wave-animation {
+        0% {
+            transform: rotate(0deg);
+        }
+        10% {
+            transform: rotate(14deg);
+        } /* The following five values can be played with to make the waving more or less extreme */
+        20% {
+            transform: rotate(-8deg);
+        }
+        30% {
+            transform: rotate(14deg);
+        }
+        40% {
+            transform: rotate(-4deg);
+        }
+        50% {
+            transform: rotate(10deg);
+        }
+        60% {
+            transform: rotate(0deg);
+        } /* Reset for the last half to pause */
+        100% {
+            transform: rotate(0deg);
+        }
+    }
+
+    h1 {
+        font-size: 0.5em;
+    }
+`
 export default function Home() {
     const dispatch = useDispatch()
     const authStatus = useSelector(state => state.authReducer.authStatus)
@@ -29,14 +67,22 @@ export default function Home() {
     return (
         <>
             {authStatus === authStatuses.LOGGED_IN && (
-                <Row textAlign="center" style={{ marginTop: '10vh' }}>
-                    <Col>
-                        <h2>👋 {displayName}</h2>
-                        Press{' '}
-                        <span style={{ color: colors.primary }}>play</span> to
-                        start the game
-                    </Col>
-                </Row>
+                <>
+                    <Row textAlign="center" style={{ marginTop: '10vh' }}>
+                        <Col>
+                            <h2>
+                                <Wave>👋</Wave> {displayName}
+                            </h2>
+                            <h2>
+                                Press{' '}
+                                <span style={{ color: colors.primary }}>
+                                    play
+                                </span>{' '}
+                                to start the game!!
+                            </h2>
+                        </Col>
+                    </Row>
+                </>
             )}
             {authStatus === authStatuses.NOT_LOGGED_IN && (
                 <Row fullWidth>

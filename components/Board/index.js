@@ -1,12 +1,17 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { Row } from '../Grid/Row'
 import { Col } from '../Grid/Col'
 import styled, { css } from 'styled-components'
 import useDimensions from 'react-use-dimensions'
 import { Pawn } from '../Pawn'
-import { useSelector } from 'react-redux'
-import { gameStatuses } from '../../modules/store/game/reducer'
+import { useDispatch, useSelector } from 'react-redux'
+import {
+    answerCorrect,
+    answerFalse,
+    gameStatuses,
+} from '../../modules/store/game/reducer'
 import { RainbowIcon } from '../svgs/RainbowIcon'
+import Modal from 'react-modal'
 
 const sharedCardStyles = css`
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
@@ -53,6 +58,77 @@ const capitalize = s => {
     if (typeof s !== 'string') return ''
     return s.charAt(0).toUpperCase() + s.slice(1)
 }
+
+const questions = {
+    red: [
+        'What is your favourite colour?',
+        'What is your favourite food?',
+        'What is your favourite fruit?',
+        'What is your favourite lesson?',
+        'Who is this?What is your mum’s name?',
+        'What is the weather like today?',
+        'What day is today?',
+        'What day was yesterday?',
+        'What day will be tomorrow?',
+        'What colour is your top?',
+    ],
+    yellow: [
+        'What is Georgia doing?',
+        'What is Daniel doing?',
+        'What is Syeda doing?',
+        'What is Lauren doing?',
+        'What is Marianna doing?',
+    ],
+    green: [
+        'Who are you working with?',
+        'Who is your favourite teacher?',
+        'Who is your favourite friend?',
+        'Who is your favourite hero?',
+    ],
+}
+
+const deriveTheKindOfQuestion = score => {
+    if (score > 18) {
+        return
+    }
+
+    switch (score) {
+        case 1:
+        case 3:
+        case 4:
+        case 7:
+        case 10:
+        case 12:
+        case 14:
+        case 16:
+        case 18:
+            return 'red'
+        case 2:
+        case 6:
+        case 9:
+        case 15:
+            return 'yellow'
+        case 5:
+        case 8:
+        case 11:
+        case 13:
+        case 17:
+            return 'green'
+        default:
+            return
+    }
+}
+
+const deriveRandomQuestion = (steps = 0) => {
+    if (!steps) return
+
+    const q = questions[deriveTheKindOfQuestion(steps)]
+    const question = q[Math.floor(Math.random() * q.length)]
+    return question
+}
+
+Modal.setAppElement('#__next')
+
 export const Board = () => {
     const [ref, { width: stepSize }] = useDimensions()
     const gameStatus = useSelector(state => state.gameReducer.status)
@@ -60,8 +136,25 @@ export const Board = () => {
     const playingPlayerId = useSelector(
         state => state.gameReducer.playingPlayerId
     )
+
+    const dispatch = useDispatch()
+
+    const steps = allPlayers[playingPlayerId].steps
+    const question = useMemo(() => {
+        deriveRandomQuestion(steps)
+    }, [steps])
+
     return (
         <>
+            <Modal
+                isOpen={gameStatus === gameStatuses.QUESTION_IS_OPEN}
+                contentLabel="Example Modal"
+            >
+                <h2>{question}</h2>
+                <button onClick={() => dispatch(answerCorrect())}>true</button>
+                <button onClick={() => dispatch(answerFalse())}>false</button>
+            </Modal>
+
             <Row fullWidth position="center" textAlign="center">
                 <Col lg={6}>
                     <h1>
@@ -128,10 +221,10 @@ export const Board = () => {
                                 <CardRed />
                             </Col>
                             <Col lg={2}>
-                                <CardGreen />
+                                <CardYellow />
                             </Col>
                             <Col lg={2}>
-                                <CardYellow />
+                                <CardRed />
                             </Col>
                             <Col lg={2}>
                                 <CardRed />
@@ -149,7 +242,7 @@ export const Board = () => {
 
                         <Row fullWidth>
                             <Col lg={2}>
-                                <CardYellow />
+                                <CardRed />
                             </Col>
                             <Col lg={2}>
                                 <CardGreen />
@@ -170,13 +263,13 @@ export const Board = () => {
 
                         <Row fullWidth>
                             <Col lg={2}>
-                                <CardRed />
+                                <CardGreen />
                             </Col>
                         </Row>
 
                         <Row fullWidth textAlign="center">
                             <Col lg={2}>
-                                <CardGreen />
+                                <CardRed />
                             </Col>
                             <Col lg={2}>
                                 <CardYellow />
@@ -188,7 +281,7 @@ export const Board = () => {
                                 <CardGreen />
                             </Col>
                             <Col lg={2}>
-                                <CardYellow />
+                                <CardRed />
                             </Col>
                             <Col lg={2}>
                                 <CardWhite>

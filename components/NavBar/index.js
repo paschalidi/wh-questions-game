@@ -7,9 +7,9 @@ import Link from 'next/link'
 import { colors } from '../utils/colors'
 
 const NavBarStyles = styled.div`
+    background-color: ${colors.black};
     height: 56px;
-    border-bottom: 1px solid #eaeaea;
-    color: #1b263b;
+    border-bottom: 1px solid #000;
     .base {
         font-size: 16px;
         background-color: rgba(0, 118, 255, 0.9);
@@ -30,9 +30,9 @@ const NavBarStyles = styled.div`
 
     .no-border {
         box-sizing: border-box;
-        color: ${colors.primary};
+        color: ${colors.green};
         border: 1px solid transparent;
-        background-color: ${colors.white};
+        background-color: transparent;
 
         i {
             font-size: 1.4em;
@@ -44,7 +44,7 @@ const NavBarStyles = styled.div`
 
         &:hover,
         &:active {
-            border: 1px solid ${colors.primary};
+            border: 1px solid ${colors.white};
         }
 
         &:disabled {
@@ -56,21 +56,17 @@ const NavBarStyles = styled.div`
 
     .primary {
         color: ${colors.white};
-        background-color: ${colors.primary};
-        border: 1px solid ${colors.primary};
+        background-color: ${colors.pink};
+        border: 1px solid ${colors.pink};
 
         i {
             font-size: 1.5em;
         }
 
-        &:hover {
-            top: -4px;
-            border: 1px solid ${colors.active};
-            background-color: ${colors.active};
-        }
-
+        &:hover,
         &:active {
-            background-color: ${colors.active};
+            border: 1px solid ${colors.white};
+            color: ${colors.white};
         }
 
         &:disabled {
