@@ -27,35 +27,35 @@ const initialState = {
     allPlayers: {
         0: {
             steps: 0,
-            lastStepSize: 0,
+            score: 0,
             playerId: 0,
             icon: '🍔',
             name: 'burger',
         },
         1: {
             steps: 0,
-            lastStepSize: 0,
+            score: 0,
             playerId: 1,
             icon: '🌮',
             name: 'tacos',
         },
         2: {
             steps: 0,
-            lastStepSize: 0,
+            score: 0,
             playerId: 2,
             icon: '🍕',
             name: 'pizza',
         },
         3: {
             steps: 0,
-            lastStepSize: 0,
+            score: 0,
             playerId: 3,
             icon: '🌯',
             name: 'burrito',
         },
         4: {
             steps: 0,
-            lastStepSize: 0,
+            score: 0,
             playerId: 4,
             icon: '🍣',
             name: 'sushi',
@@ -75,7 +75,7 @@ export const gameReducer = createReducer(initialState, builder => {
                         ...acc,
                         [id]: {
                             steps: 0,
-                            lastStepSize: 0,
+                            score: 0,
                             playerId: id,
                             icon,
                             name,
@@ -111,7 +111,7 @@ export const gameReducer = createReducer(initialState, builder => {
 
     builder.addCase(answerCorrect, state => {
         state.status = gameStatuses.NEUTRAL
-        //todo points
+        state.allPlayers[state.playingPlayerId].score++
     })
     builder.addCase(answerFalse, state => {
         state.status = gameStatuses.NEUTRAL

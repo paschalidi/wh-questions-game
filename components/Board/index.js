@@ -12,6 +12,8 @@ import {
 } from '../../modules/store/game/reducer'
 import { RainbowIcon } from '../svgs/RainbowIcon'
 import Modal from 'react-modal'
+import { colors } from '../utils/colors'
+import { Button } from '../Button'
 
 const sharedCardStyles = css`
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
@@ -119,12 +121,16 @@ const deriveTheKindOfQuestion = score => {
     }
 }
 
-const deriveRandomQuestion = (steps = 0) => {
-    if (!steps) return
-
-    const q = questions[deriveTheKindOfQuestion(steps)]
-    const question = q[Math.floor(Math.random() * q.length)]
-    return question
+const useQuestion = (allPlayers, playingPlayerId, gameStatus) => {
+    if (gameStatus !== gameStatuses.QUESTION_IS_OPEN) {
+        return {}
+    }
+    const steps = allPlayers[playingPlayerId].steps
+    const questionType = deriveTheKindOfQuestion(steps)
+    const questionsOfType = questions[questionType]
+    const question =
+        questionsOfType[Math.floor(Math.random() * questionsOfType.length)]
+    return { question, questionType }
 }
 
 Modal.setAppElement('#__next')
@@ -138,21 +144,68 @@ export const Board = () => {
     )
 
     const dispatch = useDispatch()
-
-    const steps = allPlayers[playingPlayerId].steps
-    const question = useMemo(() => {
-        deriveRandomQuestion(steps)
-    }, [steps])
-
+    const { question, questionType } = useQuestion(
+        allPlayers,
+        playingPlayerId,
+        gameStatus
+    )
     return (
         <>
             <Modal
+                style={{
+                    content: {
+                        border: `solid 1px ${colors.black}`,
+                        width: '20vw',
+                        top: '50%',
+                        left: '50%',
+                        right: 'auto',
+                        bottom: 'auto',
+                        marginRight: '-50%',
+                        transform: 'translate(-50%, -50%)',
+                        background: (() => {
+                            switch (questionType) {
+                                case 'red':
+                                    return colors.redBackgroundLight
+                                case 'green':
+                                    return colors.greenBackgroundLight
+                                case 'yellow':
+                                    return colors.yellowBackgroundLight
+                            }
+                        })(),
+                    },
+                }}
                 isOpen={gameStatus === gameStatuses.QUESTION_IS_OPEN}
                 contentLabel="Example Modal"
             >
-                <h2>{question}</h2>
-                <button onClick={() => dispatch(answerCorrect())}>true</button>
-                <button onClick={() => dispatch(answerFalse())}>false</button>
+                <Row position="center" textAlign="center">
+                    <Col lg={12}>
+                        <h1 style={{ margin: '20px 0 40px 0' }}>{question}</h1>
+                        <Row position="center" textAlign="center">
+                            <Col lg={6}>
+                                <Button
+                                    style={{ margin: '0 auto' }}
+                                    type="primary"
+                                    onClick={() => dispatch(answerFalse())}
+                                >
+                                    untrue
+                                </Button>
+                            </Col>
+                            <Col lg={6}>
+                                <Button
+                                    style={{ margin: '0 auto' }}
+                                    type="primary"
+                                    onClick={() =>
+                                        dispatch(
+                                            answerCorrect({ playingPlayerId })
+                                        )
+                                    }
+                                >
+                                    correct
+                                </Button>
+                            </Col>
+                        </Row>
+                    </Col>
+                </Row>
             </Modal>
 
             <Row fullWidth position="center" textAlign="center">
@@ -173,7 +226,8 @@ export const Board = () => {
                                 style={{ marginBottom: 10 }}
                             >
                                 <H1 isPlaying={playingPlayerId === playerId}>
-                                    {capitalize(name)}
+                                    {capitalize(name)}:{' '}
+                                    {allPlayers[playerId].score}
                                 </H1>
                             </Col>
                         ))}

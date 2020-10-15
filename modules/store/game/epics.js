@@ -12,7 +12,6 @@ import {
     movePawnOneStep,
     startPawnMovement,
     disableRoll,
-    askQuestion,
     movePawnOneLastStep,
     openModal,
     answerCorrect,

@@ -22,9 +22,9 @@ export const colors = {
     affirmative: '#189F59',
     warning: '#D97508',
     white: '#FFFFFF',
-    destructiveDim: '#FFE1E1',
-    affirmativeDim: '#E8F5E5',
-    warningDim: '#FFF6D1',
+    redBackgroundLight: '#FFE1E1',
+    greenBackgroundLight: '#E8F5E5',
+    yellowBackgroundLight: '#FFF6D1',
     textInactive: '#BFBFBF',
     background: '#F2F3F4',
 }
