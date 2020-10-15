@@ -9,6 +9,7 @@ import { Button } from '../components/Button'
 import styled from 'styled-components'
 import { GoogleIcon } from '../components/svgs/GoogleIcon'
 import { Clouds } from '../components/Clouds'
+import { colors } from '../components/utils/colors'
 
 const GoogleButton = styled(Button)`
     margin: 0 auto;
@@ -28,10 +29,12 @@ export default function Home() {
     return (
         <>
             {authStatus === authStatuses.LOGGED_IN && (
-                <Row>
+                <Row textAlign="center" style={{ marginTop: '10vh' }}>
                     <Col>
-                        <h3>{displayName}</h3>
-                        Press play to start the game
+                        <h2>👋 {displayName}</h2>
+                        Press{' '}
+                        <span style={{ color: colors.primary }}>play</span> to
+                        start the game
                     </Col>
                 </Row>
             )}
