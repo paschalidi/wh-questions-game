@@ -12,7 +12,7 @@ export const userLoginStartEpic = (action$, state$, { firebase$ }) =>
             const provider = new firebase.auth.GoogleAuthProvider()
 
             return createObservableFromFirebase(
-                firebase$.auth().signInWi§thPopup(provider)
+                firebase$.auth().signInWithPopup(provider)
             ).pipe(
                 map(() => userLoginComplete()),
                 catchError(err => of(userLoginError(err)))
