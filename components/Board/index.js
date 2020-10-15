@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React, { useRef, useEffect, useState } from 'react'
 import { Row } from '../Grid/Row'
 import { Col } from '../Grid/Col'
 import styled, { css } from 'styled-components'
@@ -137,7 +137,15 @@ const useQuestion = (allPlayers, playingPlayerId, gameStatus) => {
 Modal.setAppElement('#__next')
 
 export const Board = () => {
-    const [ref, { width: stepSize }] = useDimensions()
+    const ref = useRef()
+    const [stepSize, setStepSize] = useState(0)
+
+    useEffect(() => {
+        document.onreadystatechange = () => {
+            setStepSize(ref.current.clientHeight)
+        }
+    }, [])
+
     const gameStatus = useSelector(state => state.gameReducer.status)
     const allPlayers = useSelector(state => state.gameReducer.allPlayers)
     const playingPlayerId = useSelector(
