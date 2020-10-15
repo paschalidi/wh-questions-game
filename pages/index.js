@@ -10,6 +10,7 @@ import styled from 'styled-components'
 import { GoogleIcon } from '../components/svgs/GoogleIcon'
 import { Clouds } from '../components/Clouds'
 import { colors } from '../components/utils/colors'
+import { Background } from './players'
 
 const GoogleButton = styled(Button)`
     margin: 0 auto;
@@ -68,20 +69,22 @@ export default function Home() {
         <>
             {authStatus === authStatuses.LOGGED_IN && (
                 <>
-                    <Row textAlign="center" style={{ marginTop: '10vh' }}>
-                        <Col>
-                            <h2>
-                                <Wave>👋</Wave> {displayName}
-                            </h2>
-                            <h2>
-                                Press{' '}
-                                <span style={{ color: colors.primary }}>
-                                    play
-                                </span>{' '}
-                                to start the game!!
-                            </h2>
-                        </Col>
-                    </Row>
+                    <Background>
+                        <Row textAlign="center">
+                            <Col>
+                                <h2 style={{ paddingTop: '10vh' }}>
+                                    <Wave>👋</Wave> {displayName}
+                                </h2>
+                                <h2>
+                                    Press{' '}
+                                    <span style={{ color: colors.pink }}>
+                                        play
+                                    </span>{' '}
+                                    to start the game!!
+                                </h2>
+                            </Col>
+                        </Row>
+                    </Background>
                 </>
             )}
             {authStatus === authStatuses.NOT_LOGGED_IN && (
