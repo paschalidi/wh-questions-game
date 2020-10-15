@@ -11,7 +11,7 @@ const Styles = styled.div`
 
     @keyframes animateCloud {
         0% {
-            margin-left: -1000px;
+            margin-left: -700px;
         }
         100% {
             margin-left: 100%;

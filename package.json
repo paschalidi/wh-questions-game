@@ -6,7 +6,7 @@
         "dev": "next dev",
         "build": "next build && next export",
         "start": "next start",
-        "firebase:deploy": "firebase deploy"
+        "deploy": "yarn build && firebase deploy"
     },
     "dependencies": {
         "@dhis2/cli-style": "^7.2.0",
