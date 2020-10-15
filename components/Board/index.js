@@ -156,7 +156,7 @@ export const Board = () => {
                     content: {
                         border: `solid 1px ${colors.black}`,
                         width: '20vw',
-                        top: '50%',
+                        top: '40%',
                         left: '50%',
                         right: 'auto',
                         bottom: 'auto',
