@@ -1,23 +1,12 @@
 import { ofType } from 'redux-observable'
-import {
-    errorLoadingFirebase,
-    completeLoadingFirebase,
-    startLoadingFirebase,
-} from './actions'
-import { catchError, flatMap, switchMap, tap } from 'rxjs/operators'
-import { lazyLoadFireBase } from './config'
+import { loadingFirebaseCompleted, loadingFirebaseError } from './actions'
+import { catchError, switchMap } from 'rxjs/operators'
 import { concat, of } from 'rxjs'
 import { startAuthListener } from '../auth/actions'
 
-export const startLoadingFirebaseEpic = (action$, state$, { firebase }) =>
+export const startLoadingFirebaseEpic = action$ =>
     action$.pipe(
-        ofType(startLoadingFirebase),
-        flatMap(() => lazyLoadFireBase()),
-        tap(app => {
-            firebase.next(app)
-        }),
-        switchMap(() =>
-            concat(of(completeLoadingFirebase()), of(startAuthListener()))
-        ),
-        catchError(error => errorLoadingFirebase(error))
+        ofType(loadingFirebaseCompleted),
+        switchMap(() => concat(of(startAuthListener()))),
+        catchError(error => loadingFirebaseError(error))
     )

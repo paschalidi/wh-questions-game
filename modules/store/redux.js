@@ -3,14 +3,13 @@ import {
     combineReducers,
 } from '@reduxjs/toolkit'
 import { createEpicMiddleware, combineEpics } from 'redux-observable'
-import { startLoadingFirebaseEpic } from './firebase/epics'
-import { firebaseReducer } from './firebase/reducer'
 import { authReducer } from './auth/reducer'
 import { gameReducer } from './game/reducer'
-import { firebaseApp$ } from './firebase/config'
+import { startLoadingFirebaseEpic } from './firebase/epics'
 import { startAuthListenerEpic } from './auth/epics'
 import { userLoginStartEpic } from './loginWithGoogle/epics'
 import { gameEpic } from './game/epics'
+import { firebase$ } from './firebase/config'
 
 const rootEpic = combineEpics(
     startLoadingFirebaseEpic,
@@ -20,13 +19,12 @@ const rootEpic = combineEpics(
 )
 
 const rootReducer = combineReducers({
-    firebaseReducer,
     authReducer,
     gameReducer,
 })
 
 const epicMiddleware = createEpicMiddleware({
-    dependencies: { firebase: firebaseApp$ },
+    dependencies: { firebase$ },
 })
 
 const store = toolkitConfigureStore({

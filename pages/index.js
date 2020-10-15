@@ -19,7 +19,7 @@ const GoogleButton = styled(Button)`
     padding: 0.6rem 2rem;
 `
 
-export default function Home({}) {
+export default function Home() {
     const dispatch = useDispatch()
     const authStatus = useSelector(state => state.authReducer.authStatus)
     const displayName = useSelector(state => state.authReducer.user.displayName)
