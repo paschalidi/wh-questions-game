@@ -53,7 +53,9 @@ export default function Home() {
                     >
                         <Row verticalAlign="middle" position="center">
                             <Col offset={2} lg={8}>
-                                <h1>Welcome to the questions game</h1>
+                                <h1 style={{ paddingBottom: 20 }}>
+                                    Welcome to the questions game
+                                </h1>
                                 <GoogleButton
                                     style={{ padding: '0.6rem 2rem' }}
                                     type="white"
