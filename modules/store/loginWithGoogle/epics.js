@@ -1,5 +1,5 @@
 import { ofType } from 'redux-observable'
-import { combineLatest, of } from 'rxjs'
+import { of } from 'rxjs'
 import { userLoginStart, userLoginComplete, userLoginError } from './actions'
 import { catchError, flatMap, map } from 'rxjs/operators'
 import { createObservableFromFirebase } from '../utils/createObservableFromFirebase'
