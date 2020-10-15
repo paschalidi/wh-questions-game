@@ -24,12 +24,16 @@ export default function Home() {
     const authStatus = useSelector(state => state.authReducer.authStatus)
     const displayName = useSelector(state => state.authReducer.user.displayName)
 
+    if (authStatus === authStatuses.LOADING) return <Loading />
     return (
         <>
             {authStatus === authStatuses.LOGGED_IN && (
-                <div>
-                    <h3>{displayName}</h3>
-                </div>
+                <Row>
+                    <Col>
+                        <h3>{displayName}</h3>
+                        Press play to start the game
+                    </Col>
+                </Row>
             )}
             {authStatus === authStatuses.NOT_LOGGED_IN && (
                 <Row fullWidth>
