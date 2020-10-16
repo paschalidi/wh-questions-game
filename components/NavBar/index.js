@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import { useIsAuthenticated } from '../../modules/hooks/useIsAuthenticated'
 import Link from 'next/link'
 import { colors } from '../utils/colors'
-import { setUnauthenticated } from '../../modules/store/auth/actions'
+import { userLogoutStart } from '../../modules/store/loginWithGoogle/actions'
 import { useDispatch } from 'react-redux'
 import { Button } from '../Button'
 
@@ -104,7 +104,7 @@ export const NavBar = () => {
                     <Col offset={1} lg={1}>
                         <Button
                             type="no-border"
-                            onClick={() => dispatch(setUnauthenticated())}
+                            onClick={() => dispatch(userLogoutStart())}
                         >
                             Logout
                         </Button>

@@ -7,14 +7,15 @@ import { authReducer } from './auth/reducer'
 import { gameReducer } from './game/reducer'
 import { startLoadingFirebaseEpic } from './firebase/epics'
 import { startAuthListenerEpic } from './auth/epics'
-import { userLoginStartEpic } from './loginWithGoogle/epics'
-import { gameEpic, openModalEpic,closeModalEpic } from './game/epics'
+import { userLoginEpic, userLogoutEpic } from './loginWithGoogle/epics'
+import { gameEpic, openModalEpic, closeModalEpic } from './game/epics'
 import { firebase$ } from './firebase/config'
 
 const rootEpic = combineEpics(
     startLoadingFirebaseEpic,
     startAuthListenerEpic,
-    userLoginStartEpic,
+    userLoginEpic,
+    userLogoutEpic,
     gameEpic,
     openModalEpic,
     closeModalEpic
