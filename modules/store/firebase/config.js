@@ -16,6 +16,7 @@ try {
     firebase.auth()
     firebase.firestore()
     firebase.analytics()
+    firebase.performance()
 } catch (error) {
     /*
      * We skip the "already exists" message which is
