@@ -1,10 +1,7 @@
-import React, { useMemo } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import { useSelector } from 'react-redux'
 import { Motion, spring } from 'react-motion'
-import Modal from 'react-modal'
-import { gameStatuses } from '../../modules/store/game/reducer'
-import { Button } from '../Button'
 
 const PawnStyles = styled.div`
     margin: 0 auto;
@@ -16,8 +13,14 @@ const PawnStyles = styled.div`
     color: white;
 `
 
-const MAX_POSSIBLE_STEPS = 19
+export const MAX_POSSIBLE_STEPS = 18
 const movementMappedOnSteps = (steps = 0, stepSize = 0) => {
+    if (steps > MAX_POSSIBLE_STEPS) {
+        return {
+            x: spring(stepSize * 5),
+            y: spring(stepSize * 4 + 6),
+        }
+    }
     switch (steps) {
         case 1:
         case 2:
@@ -85,16 +88,7 @@ export const Pawn = ({ stepSize, playerId, icon }) => {
     )
     return (
         <>
-            <Motion
-                style={
-                    steps < MAX_POSSIBLE_STEPS
-                        ? movementMappedOnSteps(steps, stepSize)
-                        : {
-                              x: spring(stepSize * 5),
-                              y: spring(stepSize * 4 + 6),
-                          }
-                }
-            >
+            <Motion style={movementMappedOnSteps(steps, stepSize)}>
                 {({ x, y }) => {
                     return (
                         <PawnStyles

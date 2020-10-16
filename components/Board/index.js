@@ -1,9 +1,9 @@
-import React, { useRef, useCallback, useMemo } from 'react'
+import React, { useEffect } from 'react'
 import { Row } from '../Grid/Row'
 import { Col } from '../Grid/Col'
 import styled, { css } from 'styled-components'
 import useDimensions from 'react-cool-dimensions'
-import { Pawn } from '../Pawn'
+import { MAX_POSSIBLE_STEPS, Pawn } from '../Pawn'
 import { useDispatch, useSelector } from 'react-redux'
 import {
     answerCorrect,
@@ -15,6 +15,8 @@ import Modal from 'react-modal'
 import { colors } from '../utils/colors'
 import { Button } from '../Button'
 import { RollDice } from '../RollDice'
+import { useRouter } from 'next/router'
+import { Loading } from '../Loading'
 
 const sharedCardStyles = css`
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
@@ -88,14 +90,15 @@ const questions = {
         'Who is your favourite friend?',
         'Who is your favourite hero?',
     ],
+    finish: ['Congratulations for finishing!'],
 }
 
-const deriveTheKindOfQuestion = score => {
-    if (score > 18) {
-        return
+const deriveTheKindOfQuestion = steps => {
+    if (steps > MAX_POSSIBLE_STEPS) {
+        return 'finish'
     }
 
-    switch (score) {
+    switch (steps) {
         case 1:
         case 3:
         case 4:
@@ -118,7 +121,7 @@ const deriveTheKindOfQuestion = score => {
         case 17:
             return 'green'
         default:
-            return
+            return 'finish'
     }
 }
 
@@ -137,6 +140,7 @@ const useQuestion = (allPlayers, playingPlayerId, gameStatus) => {
 Modal.setAppElement('#__next')
 
 export const Board = () => {
+    const router = useRouter()
     const dispatch = useDispatch()
     const gameStatus = useSelector(state => state.gameReducer.status)
     const allPlayers = useSelector(state => state.gameReducer.allPlayers)
@@ -150,6 +154,15 @@ export const Board = () => {
         gameStatus
     )
 
+    useEffect(() => {
+        if (!Object.keys(allPlayers).length) {
+            router.push('/players')
+        }
+    }, [allPlayers])
+
+    if (!Object.keys(allPlayers).length) {
+        return <Loading />
+    }
     return (
         <>
             <Modal
@@ -171,37 +184,91 @@ export const Board = () => {
                                     return colors.greenBackgroundLight
                                 case 'yellow':
                                     return colors.yellowBackgroundLight
+                                default:
+                                    return colors.white
                             }
                         })(),
                     },
                 }}
                 isOpen={gameStatus === gameStatuses.QUESTION_IS_OPEN}
-                contentLabel="Example Modal"
             >
                 <Row position="center" textAlign="center">
                     <Col lg={12}>
                         <h1 style={{ margin: '20px 0 40px 0' }}>{question}</h1>
                         <Row position="center" textAlign="center">
+                            {questionType === 'finish' ? (
+                                <Col lg={6}>
+                                    <Button
+                                        style={{ margin: '0 auto' }}
+                                        type="primary"
+                                        onClick={() => dispatch(answerFalse())}
+                                    >
+                                        next player
+                                    </Button>
+                                </Col>
+                            ) : (
+                                <>
+                                    <Col lg={6}>
+                                        <Button
+                                            style={{ margin: '0 auto' }}
+                                            type="primary"
+                                            onClick={() =>
+                                                dispatch(answerFalse())
+                                            }
+                                        >
+                                            untrue
+                                        </Button>
+                                    </Col>
+                                    <Col lg={6}>
+                                        <Button
+                                            style={{ margin: '0 auto' }}
+                                            type="primary"
+                                            onClick={() =>
+                                                dispatch(
+                                                    answerCorrect({
+                                                        playingPlayerId,
+                                                    })
+                                                )
+                                            }
+                                        >
+                                            correct
+                                        </Button>
+                                    </Col>
+                                </>
+                            )}
+                        </Row>
+                    </Col>
+                </Row>
+            </Modal>
+            <Modal
+                style={{
+                    content: {
+                        border: `solid 1px ${colors.black}`,
+                        width: '20vw',
+                        top: '40%',
+                        left: '50%',
+                        right: 'auto',
+                        bottom: 'auto',
+                        marginRight: '-50%',
+                        transform: 'translate(-50%, -50%)',
+                        background: 'white',
+                    },
+                }}
+                isOpen={gameStatus === gameStatuses.GAME_IS_OVER}
+            >
+                <Row position="center" textAlign="center">
+                    <Col lg={12}>
+                        <h1 style={{ margin: '20px 0 40px 0' }}>
+                            Game is over!{' '}
+                        </h1>
+                        <Row position="center" textAlign="center">
                             <Col lg={6}>
                                 <Button
                                     style={{ margin: '0 auto' }}
                                     type="primary"
-                                    onClick={() => dispatch(answerFalse())}
+                                    onClick={() => router.push('/players')}
                                 >
-                                    untrue
-                                </Button>
-                            </Col>
-                            <Col lg={6}>
-                                <Button
-                                    style={{ margin: '0 auto' }}
-                                    type="primary"
-                                    onClick={() =>
-                                        dispatch(
-                                            answerCorrect({ playingPlayerId })
-                                        )
-                                    }
-                                >
-                                    correct
+                                    Start again
                                 </Button>
                             </Col>
                         </Row>

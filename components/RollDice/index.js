@@ -59,7 +59,7 @@ export const RollDice = () => {
                     id="die-1"
                     style={
                         isButtonDisabled
-                            ? { cursor: 'wait' }
+                            ? { cursor: 'not-allowed' }
                             : { cursor: 'pointer' }
                     }
                 >

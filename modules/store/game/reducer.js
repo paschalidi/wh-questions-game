@@ -24,43 +24,7 @@ export const gameStatuses = {
 }
 
 const initialState = {
-    allPlayers: {
-        0: {
-            steps: 0,
-            score: 0,
-            playerId: 0,
-            icon: '🍔',
-            name: 'burger',
-        },
-        1: {
-            steps: 0,
-            score: 0,
-            playerId: 1,
-            icon: '🌮',
-            name: 'tacos',
-        },
-        2: {
-            steps: 0,
-            score: 0,
-            playerId: 2,
-            icon: '🍕',
-            name: 'pizza',
-        },
-        3: {
-            steps: 0,
-            score: 0,
-            playerId: 3,
-            icon: '🌯',
-            name: 'burrito',
-        },
-        4: {
-            steps: 0,
-            score: 0,
-            playerId: 4,
-            icon: '🍣',
-            name: 'sushi',
-        },
-    },
+    allPlayers: {},
     status: gameStatuses.NEUTRAL,
     totalNumberOfPlayers: 2,
     playingPlayerId: 0,

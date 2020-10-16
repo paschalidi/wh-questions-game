@@ -27,14 +27,14 @@ const deriveNextPlayerIndex = (playingPlayerId, allPlayers) => {
 
     const listOfPlayers = Object.values(allPlayers)
 
-    const chunckFirst = listOfPlayers.slice(
+    const chunkFirst = listOfPlayers.slice(
         0,
         currentPlayingPlayerIndexInAllPlayers + 1
     )
-    const chunckSecond = listOfPlayers.splice(
+    const chunkSecond = listOfPlayers.splice(
         currentPlayingPlayerIndexInAllPlayers + 1
     )
-    const allPlayersSorted = [...chunckSecond, ...chunckFirst]
+    const allPlayersSorted = [...chunkSecond, ...chunkFirst]
 
     const { playerId } = allPlayersSorted.find(({ steps }) => steps < 19) || {}
     return playerId
