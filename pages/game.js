@@ -6,7 +6,6 @@ import { Background } from './players'
 export default function Game() {
     return (
         <Background>
-            <RollDice />
             <Board />
         </Background>
     )

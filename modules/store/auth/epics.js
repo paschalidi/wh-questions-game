@@ -1,6 +1,4 @@
 import { ofType } from 'redux-observable'
-
-import { combineLatest } from 'rxjs'
 import {
     setAuthenticated,
     setUnauthenticated,

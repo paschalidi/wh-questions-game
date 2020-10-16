@@ -49,6 +49,7 @@ export const gameEpic = (action$, state$) =>
         pluck('payload'),
         flatMap(({ roll }) =>
             range(0, roll).pipe(
+                delay(1500),
                 concatMap(i => of(i).pipe(delay(400))),
                 map(rollCounter => {
                     const { allPlayers } = state$.value.gameReducer

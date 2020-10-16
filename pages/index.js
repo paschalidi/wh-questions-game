@@ -72,16 +72,16 @@ export default function Home() {
                     <Background>
                         <Row textAlign="center">
                             <Col>
-                                <h2 style={{ paddingTop: '10vh' }}>
+                                <h1 style={{ paddingTop: '10vh' }}>
                                     <Wave>👋</Wave> {displayName}
-                                </h2>
-                                <h2>
+                                </h1>
+                                <h1>
                                     Press{' '}
                                     <span style={{ color: colors.pink }}>
                                         play
                                     </span>{' '}
                                     to start the game!!
-                                </h2>
+                                </h1>
                             </Col>
                         </Row>
                     </Background>
