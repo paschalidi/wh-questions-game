@@ -26,7 +26,6 @@ export const gameStatuses = {
 const initialState = {
     allPlayers: {},
     status: gameStatuses.NEUTRAL,
-    totalNumberOfPlayers: 2,
     playingPlayerId: 0,
 }
 
@@ -90,9 +89,8 @@ export const gameReducer = createReducer(initialState, builder => {
         state.status = gameStatuses.GAME_IS_OVER
     })
     builder.addCase(resetGame, state => {
-        state.status = gameStatuses.NEUTRAL
-        state.totalNumberOfPlayers = initialState.totalNumberOfPlayers
-        state.playingPlayerId = initialState.playingPlayerId
         state.allPlayers = initialState.allPlayers
+        state.playingPlayerId = initialState.playingPlayerId
+        state.status = gameStatuses.NEUTRAL
     })
 })

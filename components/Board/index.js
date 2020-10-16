@@ -9,6 +9,7 @@ import {
     answerCorrect,
     answerFalse,
     gameStatuses,
+    resetGame,
 } from '../../modules/store/game/reducer'
 import { RainbowIcon } from '../svgs/RainbowIcon'
 import Modal from 'react-modal'
@@ -154,15 +155,13 @@ export const Board = () => {
         gameStatus
     )
 
+    // on unmount
     useEffect(() => {
-        if (!Object.keys(allPlayers).length) {
-            router.push('/players')
+        return () => {
+            dispatch(resetGame())
         }
-    }, [allPlayers])
+    }, [resetGame, dispatch])
 
-    if (!Object.keys(allPlayers).length) {
-        return <Loading />
-    }
     return (
         <>
             <Modal
