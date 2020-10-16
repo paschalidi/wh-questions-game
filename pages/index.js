@@ -100,7 +100,7 @@ export default function Home() {
                             height: '100vh',
                         }}
                     >
-                        <Row verticalAlign="middle" position="center">
+                        <Row verticalAlign="middle" position="start" fullWidth>
                             <Col offset={2} lg={8}>
                                 <h1 style={{ paddingBottom: 20 }}>
                                     Welcome to the questions game
