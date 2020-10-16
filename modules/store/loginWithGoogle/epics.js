@@ -1,10 +1,12 @@
 import { ofType } from 'redux-observable'
-import { empty, of } from 'rxjs'
+import { of } from 'rxjs'
 import {
     userLoginStart,
     userLoginComplete,
     userLoginError,
     userLogoutStart,
+    userLogoutComplete,
+    userLogoutError,
 } from './actions'
 import { catchError, flatMap, ignoreElements, map } from 'rxjs/operators'
 import { createObservableFromFirebase } from '../utils/createObservableFromFirebase'
@@ -29,8 +31,12 @@ export const userLogoutEpic = (action$, state$, { firebase$ }) =>
     action$.pipe(
         ofType(userLogoutStart),
         flatMap(() => {
-            firebase$.auth().signOut()
-            return empty()
+            return createObservableFromFirebase(
+                firebase$.auth().signOut()
+            ).pipe(
+                map(() => userLogoutComplete()),
+                catchError(err => of(userLogoutError(err)))
+            )
         }),
         ignoreElements()
     )
