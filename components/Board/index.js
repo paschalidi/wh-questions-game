@@ -17,7 +17,6 @@ import { colors } from '../utils/colors'
 import { Button } from '../Button'
 import { RollDice } from '../RollDice'
 import { useRouter } from 'next/router'
-import { Loading } from '../Loading'
 
 const sharedCardStyles = css`
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);

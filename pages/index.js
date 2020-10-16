@@ -13,8 +13,8 @@ import { colors } from '../components/utils/colors'
 import { Background } from './players'
 
 const GoogleButton = styled(Button)`
+    line-height: initial;
     margin: 0 auto;
-
     font-size: 16px !important;
     font-weight: 200;
     line-height: 0.9rem !important;

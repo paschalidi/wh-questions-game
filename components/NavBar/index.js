@@ -5,6 +5,9 @@ import styled from 'styled-components'
 import { useIsAuthenticated } from '../../modules/hooks/useIsAuthenticated'
 import Link from 'next/link'
 import { colors } from '../utils/colors'
+import { setUnauthenticated } from '../../modules/store/auth/actions'
+import { useDispatch } from 'react-redux'
+import { Button } from '../Button'
 
 const NavBarStyles = styled.div`
     background-color: ${colors.black};
@@ -77,6 +80,7 @@ const NavBarStyles = styled.div`
 `
 
 export const NavBar = () => {
+    const dispatch = useDispatch()
     const { isAuth } = useIsAuthenticated()
 
     if (!isAuth) {
@@ -98,9 +102,12 @@ export const NavBar = () => {
                         </Link>
                     </Col>
                     <Col offset={1} lg={1}>
-                        <Link href="/">
-                            <div className="base no-border">Logout</div>
-                        </Link>
+                        <Button
+                            type="no-border"
+                            onClick={() => dispatch(setUnauthenticated())}
+                        >
+                            Logout
+                        </Button>
                     </Col>
                 </Row>
             )}

@@ -8,6 +8,7 @@ const ButtonStyles = styled.div`
     }
 
     button {
+        font-family: inherit;
         font-size: 16px;
         background-color: rgba(0, 118, 255, 0.9);
         color: #fff;
@@ -21,6 +22,7 @@ const ButtonStyles = styled.div`
         cursor: pointer;
         font-weight: 400;
         transition: background-color ease 0.2s;
+        transition: border ease 0.2s;
         outline: none;
     }
 
@@ -104,9 +106,9 @@ const ButtonStyles = styled.div`
 
     .no-border {
         box-sizing: border-box;
-        color: ${colors.primary};
+        color: ${colors.green};
         border: 1px solid transparent;
-        background-color: ${colors.white};
+        background-color: transparent;
 
         i {
             font-size: 1.4em;
@@ -118,7 +120,7 @@ const ButtonStyles = styled.div`
 
         &:hover,
         &:active {
-            border: 1px solid ${colors.primary};
+            border: 1px solid ${colors.white};
         }
 
         &:disabled {
