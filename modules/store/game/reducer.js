@@ -1,27 +1,22 @@
-import { createAction, createReducer } from '@reduxjs/toolkit'
-
-export const startGame = createAction('[game] store players and start game')
-export const startPawnMovement = createAction('[game] start movement')
-export const movePawnOneStep = createAction('[game] pawn moves one step')
-export const movePawnOneLastStep = createAction(
-    '[game] pawn moves its final step for the round'
-)
-export const disableRoll = createAction('[game] disable dice')
-export const resetGame = createAction('[game] reset')
-export const gameOver = createAction('[game] game over')
-
-export const openModal = createAction('[game] open modal')
-export const answerCorrect = createAction('[game] correct answer')
-export const answerFalse = createAction('[game] wrong answer')
-
-export const startNextRound = createAction('[game] next player is on')
-
+import { createReducer } from '@reduxjs/toolkit'
 export const gameStatuses = {
     NEUTRAL: 'NEUTRAL',
     PLAYER_IS_MOVING: 'PLAYER_IS_MOVING',
     GAME_IS_OVER: 'GAME_IS_OVER',
     QUESTION_IS_OPEN: 'QUESTION_IS_OPEN',
 }
+import {
+    startNextRound,
+    movePawnOneLastStep,
+    movePawnOneStep,
+    disableRoll,
+    resetGame,
+    gameOver,
+    openModal,
+    answerCorrect,
+    answerFalse,
+    startGame,
+} from './actions'
 
 const initialState = {
     allPlayers: {},

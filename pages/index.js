@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { userLoginStart } from '../modules/store/loginWithGoogle/actions'
+import { loginUser } from '../modules/store/loginWithGoogle/actions'
 import { authStatuses } from '../modules/store/auth/reducer'
 import { Loading } from '../components/Loading'
 import { Row } from '../components/Grid/Row'
@@ -108,7 +108,7 @@ export default function Home() {
                                 <GoogleButton
                                     style={{ padding: '0.6rem 2rem' }}
                                     type="white"
-                                    onClick={() => dispatch(userLoginStart())}
+                                    onClick={() => dispatch(loginUser())}
                                 >
                                     <span>
                                         <GoogleIcon />

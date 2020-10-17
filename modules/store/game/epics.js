@@ -17,7 +17,7 @@ import {
     answerCorrect,
     answerFalse,
     startNextRound,
-} from './reducer'
+} from './actions'
 import { of, range } from 'rxjs'
 
 const deriveNextPlayerIndex = (playingPlayerId, allPlayers) => {
