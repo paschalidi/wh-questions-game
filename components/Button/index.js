@@ -14,7 +14,6 @@ export function Button({
 }) {
     return (
         <ButtonStyles>
-            {/* eslint-disable-next-line */}
             <button
                 id={id}
                 disabled={disabled}
@@ -33,7 +32,14 @@ Button.propTypes = {
     children: PropTypes.node.isRequired,
     id: PropTypes.string,
     onClick: PropTypes.func,
-    type: PropTypes.oneOf(['primary', 'secondary', 'white', 'no-border']),
+    type: PropTypes.oneOf([
+        'primary',
+        'secondary',
+        'white',
+        'no-border',
+        'red',
+        'green',
+    ]),
     htmlType: PropTypes.oneOf(['button', 'submit', 'reset']),
     style: PropTypes.shape({}),
     disabled: PropTypes.bool,

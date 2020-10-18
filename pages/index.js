@@ -1,7 +1,7 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { loginUser } from '../modules/store/loginWithGoogle/actions'
-import { authStatuses } from '../modules/store/auth/reducer'
+import { loginUser } from '../store/loginWithGoogle/actions'
+import { authStatuses } from '../store/auth/reducer'
 import { Loading } from '../components/Loading'
 import { Row } from '../components/Grid/Row'
 import { Col } from '../components/Grid/Col'
@@ -11,6 +11,7 @@ import { GoogleIcon } from '../components/svgs/GoogleIcon'
 import { Clouds } from '../components/Clouds'
 import { colors } from '../components/utils/colors'
 import { Background } from './players'
+import { useRouter } from 'next/router'
 
 const GoogleButton = styled(Button)`
     line-height: initial;
@@ -61,6 +62,7 @@ const Wave = styled.span`
 `
 export default function Home() {
     const dispatch = useDispatch()
+    const router = useRouter()
     const authStatus = useSelector(state => state.authReducer.authStatus)
     const displayName = useSelector(state => state.authReducer.user.displayName)
 
@@ -77,11 +79,39 @@ export default function Home() {
                                 </h1>
                                 <h1>
                                     Press{' '}
-                                    <span style={{ color: colors.pink }}>
+                                    <a
+                                        style={{
+                                            cursor: 'pointer',
+                                            color: colors.pink,
+                                        }}
+                                        onClick={() => {
+                                            router.push('/players')
+                                        }}
+                                    >
                                         play
-                                    </span>{' '}
+                                    </a>{' '}
                                     to start the game!!
                                 </h1>
+                                <h2
+                                    style={{
+                                        marginTop: '10vh',
+                                        color: colors.secondary,
+                                    }}
+                                >
+                                    To add more questions to your games click
+                                    <a
+                                        onClick={() => {
+                                            router.push('/edit-questions')
+                                        }}
+                                        style={{
+                                            color: colors.pink,
+                                            cursor: 'pointer',
+                                        }}
+                                    >
+                                        {' '}
+                                        here
+                                    </a>
+                                </h2>
                             </Col>
                         </Row>
                     </Background>

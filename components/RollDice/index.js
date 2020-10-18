@@ -1,11 +1,8 @@
 import React, { useState } from 'react'
 import { DiceStyles } from './rollDice.styles'
 import { useDispatch, useSelector } from 'react-redux'
-import {
-    gameStatuses,
-    resetGame,
-    startPawnMovement,
-} from '../../modules/store/game/reducer'
+import { gameStatuses } from '../../store/game/reducer'
+import { resetGame, startPawnMovement } from '../../store/game/actions'
 
 const useRollDice = () => {
     const dispatch = useDispatch()

@@ -52,6 +52,58 @@ const ButtonStyles = styled.div`
         }
     }
 
+    .green {
+        color: ${colors.white};
+        background-color: ${colors.affirmative};
+        border: 1px solid ${colors.affirmative};
+
+        i {
+            font-size: 1.5em;
+        }
+
+        &:hover {
+            top: -4px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.12);
+            border: 1px solid ${colors.affirmativeActive};
+            background-color: ${colors.affirmativeActive};
+        }
+
+        &:active {
+            background-color: ${colors.affirmativeActive};
+        }
+
+        &:disabled {
+            box-shadow: rgba(0, 0, 0, 0.12) 0px 5px 10px 0px;
+            background-color: ${colors.divider};
+        }
+    }
+
+    .red {
+        color: ${colors.white};
+        background-color: ${colors.destructive};
+        border: 1px solid ${colors.destructive};
+
+        i {
+            font-size: 1.5em;
+        }
+
+        &:hover {
+            top: -4px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.12);
+            border: 1px solid ${colors.destructiveActive};
+            background-color: ${colors.destructiveActive};
+        }
+
+        &:active {
+            background-color: ${colors.destructiveActive};
+        }
+
+        &:disabled {
+            box-shadow: rgba(0, 0, 0, 0.12) 0px 5px 10px 0px;
+            background-color: ${colors.divider};
+        }
+    }
+
     .secondary {
         box-sizing: border-box;
         color: ${colors.white};

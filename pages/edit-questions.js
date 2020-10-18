@@ -4,7 +4,7 @@ import {
     fetchExistingQuestions,
     addNewQuestion,
     deleteQuestion,
-} from '../modules/store/questions/actions'
+} from '../store/questions/actions'
 import { useDispatch, useSelector } from 'react-redux'
 import { Row } from '../components/Grid/Row'
 import { Col } from '../components/Grid/Col'

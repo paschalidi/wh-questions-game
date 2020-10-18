@@ -5,12 +5,8 @@ import styled, { css } from 'styled-components'
 import useDimensions from 'react-cool-dimensions'
 import { MAX_POSSIBLE_STEPS, Pawn } from '../Pawn'
 import { useDispatch, useSelector } from 'react-redux'
-import {
-    answerCorrect,
-    answerFalse,
-    gameStatuses,
-    resetGame,
-} from '../../modules/store/game/reducer'
+import { answerCorrect, answerFalse, resetGame } from '../../store/game/actions'
+import { gameStatuses } from '../../store/game/reducer'
 import { RainbowIcon } from '../svgs/RainbowIcon'
 import Modal from 'react-modal'
 import { colors } from '../utils/colors'
@@ -167,7 +163,6 @@ export const Board = () => {
                 style={{
                     content: {
                         border: `solid 1px ${colors.black}`,
-                        width: '20vw',
                         top: '40%',
                         left: '50%',
                         right: 'auto',
@@ -209,18 +204,18 @@ export const Board = () => {
                                     <Col lg={6}>
                                         <Button
                                             style={{ margin: '0 auto' }}
-                                            type="primary"
+                                            type="red"
                                             onClick={() =>
                                                 dispatch(answerFalse())
                                             }
                                         >
-                                            untrue
+                                            Not correct
                                         </Button>
                                     </Col>
                                     <Col lg={6}>
                                         <Button
                                             style={{ margin: '0 auto' }}
-                                            type="primary"
+                                            type="green"
                                             onClick={() =>
                                                 dispatch(
                                                     answerCorrect({
@@ -229,7 +224,7 @@ export const Board = () => {
                                                 )
                                             }
                                         >
-                                            correct
+                                            Correct
                                         </Button>
                                     </Col>
                                 </>

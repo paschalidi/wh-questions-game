@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react'
 import '../styles/globals.css'
 import { Provider } from 'react-redux'
-import { store } from '../modules/store/redux'
-import { loadingFirebaseCompleted } from '../modules/store/firebase/actions'
+import { store } from '../store/redux'
+import { loadingFirebaseCompleted } from '../store/firebase/actions'
 import { NavBar } from '../components/NavBar'
 
 function MyApp({ Component, pageProps }) {

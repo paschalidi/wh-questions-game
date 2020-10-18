@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react'
 
-import { useIsAuthenticated } from '../modules/hooks/useIsAuthenticated'
+import { useIsAuthenticated } from '../hooks/useIsAuthenticated'
 import { Row } from '../components/Grid/Row'
 import { Col } from '../components/Grid/Col'
 import styled from 'styled-components'
@@ -8,7 +8,7 @@ import { CharacterDropdown } from '../components/CharacterDropdown'
 import { FunkyButton } from '../components/FunkyButton'
 import { useDispatch } from 'react-redux'
 import { useRouter } from 'next/router'
-import { startGame } from '../modules/store/game/actions'
+import { startGame } from '../store/game/actions'
 
 export const Background = styled.div`
     color: white;

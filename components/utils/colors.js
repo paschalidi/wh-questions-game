@@ -13,13 +13,14 @@ export const colors = {
     blackPearl: '#59636e',
     primaryDim: '#FBF7FE',
 
-
     pink: '#f54768',
     green: '#8bd76b',
     black: '#111',
 
     destructive: '#E63644',
+    destructiveActive: '#a62731',
     affirmative: '#189F59',
+    affirmativeActive: '#11713f',
     warning: '#D97508',
     white: '#FFFFFF',
     redBackgroundLight: '#FFE1E1',
