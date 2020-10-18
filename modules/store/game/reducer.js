@@ -25,67 +25,68 @@ const initialState = {
 }
 
 export const gameReducer = createReducer(initialState, builder => {
-    builder.addCase(startGame, (state, { payload: selectedPlayers }) => {
-        const allPlayers = Object.values(selectedPlayers).reduce(
-            (acc, { name, id, icon }) => {
-                if (typeof id === 'number') {
-                    return {
-                        ...acc,
-                        [id]: {
-                            steps: 0,
-                            score: 0,
-                            playerId: id,
-                            icon,
-                            name,
-                        },
+    builder
+        .addCase(startGame, (state, { payload: selectedPlayers }) => {
+            const allPlayers = Object.values(selectedPlayers).reduce(
+                (acc, { name, id, icon }) => {
+                    if (typeof id === 'number') {
+                        return {
+                            ...acc,
+                            [id]: {
+                                steps: 0,
+                                score: 0,
+                                playerId: id,
+                                icon,
+                                name,
+                            },
+                        }
                     }
-                }
-                return acc
-            },
-            {}
+                    return acc
+                },
+                {}
+            )
+
+            const { playerId } = Object.values(allPlayers).find(
+                ({ playerId }) => playerId
+            )
+            state.playingPlayerId = playerId
+            state.allPlayers = allPlayers
+        })
+        .addCase(disableRoll, state => {
+            state.status = gameStatuses.PLAYER_IS_MOVING
+        })
+
+        .addCase(movePawnOneStep, state => {
+            state.allPlayers[state.playingPlayerId].steps++
+            state.status = gameStatuses.PLAYER_IS_MOVING
+        })
+        .addCase(movePawnOneLastStep, state => {
+            state.allPlayers[state.playingPlayerId].steps++
+        })
+
+        .addCase(openModal, state => {
+            state.status = gameStatuses.QUESTION_IS_OPEN
+        })
+
+        .addCase(answerCorrect, state => {
+            state.status = gameStatuses.NEUTRAL
+            state.allPlayers[state.playingPlayerId].score++
+        })
+        .addCase(answerFalse, state => {
+            state.status = gameStatuses.NEUTRAL
+        })
+        .addCase(
+            startNextRound,
+            (state, { payload: { nextPlayingPlayerId } }) => {
+                state.playingPlayerId = nextPlayingPlayerId
+            }
         )
-
-        const { playerId } = Object.values(allPlayers).find(
-            ({ playerId }) => playerId
-        )
-        state.playingPlayerId = playerId
-        state.allPlayers = allPlayers
-    })
-    builder.addCase(disableRoll, state => {
-        state.status = gameStatuses.PLAYER_IS_MOVING
-    })
-
-    builder.addCase(movePawnOneStep, state => {
-        state.allPlayers[state.playingPlayerId].steps++
-        state.status = gameStatuses.PLAYER_IS_MOVING
-    })
-    builder.addCase(movePawnOneLastStep, state => {
-        state.allPlayers[state.playingPlayerId].steps++
-    })
-
-    builder.addCase(openModal, state => {
-        state.status = gameStatuses.QUESTION_IS_OPEN
-    })
-
-    builder.addCase(answerCorrect, state => {
-        state.status = gameStatuses.NEUTRAL
-        state.allPlayers[state.playingPlayerId].score++
-    })
-    builder.addCase(answerFalse, state => {
-        state.status = gameStatuses.NEUTRAL
-    })
-    builder.addCase(
-        startNextRound,
-        (state, { payload: { nextPlayingPlayerId } }) => {
-            state.playingPlayerId = nextPlayingPlayerId
-        }
-    )
-    builder.addCase(gameOver, state => {
-        state.status = gameStatuses.GAME_IS_OVER
-    })
-    builder.addCase(resetGame, state => {
-        state.allPlayers = initialState.allPlayers
-        state.playingPlayerId = initialState.playingPlayerId
-        state.status = gameStatuses.NEUTRAL
-    })
+        .addCase(gameOver, state => {
+            state.status = gameStatuses.GAME_IS_OVER
+        })
+        .addCase(resetGame, state => {
+            state.allPlayers = initialState.allPlayers
+            state.playingPlayerId = initialState.playingPlayerId
+            state.status = gameStatuses.NEUTRAL
+        })
 })

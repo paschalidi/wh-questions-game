@@ -22,7 +22,10 @@ export const userLoginEpic = (action$, state$, { firebase$ }) =>
                 firebase$.auth().signInWithPopup(provider)
             ).pipe(
                 map(() => loginUserComplete()),
-                catchError(err => of(loginUserError(err)))
+                catchError(err => {
+                    console.warn(err)
+                    return of(loginUserError(err))
+                })
             )
         })
     )
@@ -35,7 +38,10 @@ export const userLogoutEpic = (action$, state$, { firebase$ }) =>
                 firebase$.auth().signOut()
             ).pipe(
                 map(() => logoutUserComplete()),
-                catchError(err => of(logoutUserError(err)))
+                catchError(err => {
+                    console.warn(err)
+                    return of(logoutUserError(err))
+                })
             )
         }),
         ignoreElements()

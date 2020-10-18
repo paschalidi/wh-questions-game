@@ -53,19 +53,18 @@ export const startAuthListenerEpic = (action$, _, { firebase$ }) =>
                             .collection('users')
                             .doc(uid)
                         return from(document.get()).pipe(
-                            flatMap(doc => {
-                                const { questions } = doc.data()
-                                return iif(
-                                    () => questions,
-                                    of({}),
-                                    from(
+                            flatMap(response => {
+                                const { questions } = response.data()
+                                if (!questions) {
+                                    return from(
                                         document.set({
                                             displayName,
                                             email,
                                             questions: initialQuestions,
                                         })
                                     )
-                                )
+                                }
+                                return of({})
                             }),
                             map(() =>
                                 setAuthenticated({
@@ -78,7 +77,10 @@ export const startAuthListenerEpic = (action$, _, { firebase$ }) =>
                         return of(setUnauthenticated())
                     }
                 }),
-                catchError(() => of(setAuthenticatedError()))
+                catchError(err => {
+                    console.warn(err)
+                    return of(setAuthenticatedError())
+                })
             )
         })
     )

@@ -5,10 +5,15 @@ import {
 import { createEpicMiddleware, combineEpics } from 'redux-observable'
 import { authReducer } from './auth/reducer'
 import { gameReducer } from './game/reducer'
+import { questionsReducer } from './questions/reducer'
+
 import { startLoadingFirebaseEpic } from './firebase/epics'
 import { startAuthListenerEpic } from './auth/epics'
 import { userLoginEpic, userLogoutEpic } from './loginWithGoogle/epics'
-import { submitQuestionEpic } from './questions/epics'
+import {
+    fetchExistingQuestionsEpic,
+    addNewQuestionsEpic,
+} from './questions/epics'
 import { gameEpic, openModalEpic, closeModalEpic } from './game/epics'
 import { firebase$ } from './firebase/config'
 
@@ -20,12 +25,14 @@ const rootEpic = combineEpics(
     gameEpic,
     openModalEpic,
     closeModalEpic,
-    submitQuestionEpic
+    fetchExistingQuestionsEpic,
+    addNewQuestionsEpic
 )
 
 const rootReducer = combineReducers({
     authReducer,
     gameReducer,
+    questionsReducer,
 })
 
 const epicMiddleware = createEpicMiddleware({
