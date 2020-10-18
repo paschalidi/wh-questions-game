@@ -59,36 +59,6 @@ const capitalize = s => {
     return s.charAt(0).toUpperCase() + s.slice(1)
 }
 
-const questions = {
-    red: [
-        'What is your favourite colour?',
-        'What is your favourite food?',
-        'What is your favourite fruit?',
-        'What is your favourite lesson?',
-        'What is your mum’s name?',
-        'What is the weather like today?',
-        'What day is today?',
-        'What day was yesterday?',
-        'What day will be tomorrow?',
-        'What colour is your top?',
-    ],
-    yellow: [
-        'What is Georgia doing?',
-        'What is Daniel doing?',
-        'What is Syeda doing?',
-        'What is Lauren doing?',
-        'What is Marianna doing?',
-    ],
-    green: [
-        'Who is this?',
-        'Who are you working with?',
-        'Who is your favourite teacher?',
-        'Who is your favourite friend?',
-        'Who is your favourite hero?',
-    ],
-    finish: ['Congratulations for finishing!'],
-}
-
 const deriveTheKindOfQuestion = steps => {
     if (steps > MAX_POSSIBLE_STEPS) {
         return 'finish'
@@ -121,15 +91,21 @@ const deriveTheKindOfQuestion = steps => {
     }
 }
 
-const useQuestion = (allPlayers, playingPlayerId, gameStatus) => {
+const useQuestion = ({
+    allPlayers,
+    playingPlayerId,
+    gameStatus,
+    questions,
+}) => {
     if (gameStatus !== gameStatuses.QUESTION_IS_OPEN) {
         return {}
     }
     const steps = allPlayers[playingPlayerId].steps
     const questionType = deriveTheKindOfQuestion(steps)
     const questionsOfType = questions[questionType]
-    const question =
-        questionsOfType[Math.floor(Math.random() * questionsOfType.length)]
+    const { question } = questionsOfType[
+        Math.floor(Math.random() * questionsOfType.length)
+    ]
     return { question, questionType }
 }
 
@@ -139,16 +115,18 @@ export const Board = () => {
     const router = useRouter()
     const dispatch = useDispatch()
     const gameStatus = useSelector(state => state.gameReducer.status)
+    const questions = useSelector(state => state.questionsReducer.questions)
     const allPlayers = useSelector(state => state.gameReducer.allPlayers)
     const playingPlayerId = useSelector(
         state => state.gameReducer.playingPlayerId
     )
     const { ref, width: stepSize } = useDimensions({})
-    const { question, questionType } = useQuestion(
+    const { question, questionType } = useQuestion({
         allPlayers,
         playingPlayerId,
-        gameStatus
-    )
+        gameStatus,
+        questions,
+    })
 
     // on unmount
     useEffect(() => {
@@ -237,7 +215,6 @@ export const Board = () => {
                 style={{
                     content: {
                         border: `solid 1px ${colors.black}`,
-                        width: '20vw',
                         top: '40%',
                         left: '50%',
                         right: 'auto',
@@ -255,7 +232,7 @@ export const Board = () => {
                             Game is over!{' '}
                         </h1>
                         <Row position="center" textAlign="center">
-                            <Col lg={6}>
+                            <Col lg={12}>
                                 <Button
                                     style={{ margin: '0 auto' }}
                                     type="primary"

@@ -130,7 +130,7 @@ export default function Players({}) {
             </Row>
 
             {lengthOfPlayers > 1 && (
-                <Row position="center" style={{ marginTop: '8vh' }}>
+                <Row position="center" style={{ padding: '8vh 0' }}>
                     <Col lg={6}>
                         <FunkyButtonStartGame
                             onClick={() => handleGameStart()}
