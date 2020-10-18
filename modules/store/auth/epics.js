@@ -7,37 +7,56 @@ import {
 } from './actions'
 import { map, flatMap, catchError } from 'rxjs/operators'
 import { authState } from 'rxfire/auth'
-import { from, iif, of } from 'rxjs'
+import { from, of } from 'rxjs'
+import { v4 as uuid } from 'uuid'
 
 const initialQuestions = {
     red: [
-        'What is your favourite colour?',
-        'What is your favourite food?',
-        'What is your favourite fruit?',
-        'What is your favourite lesson?',
-        'What is your mum’s name?',
-        'What is the weather like today?',
-        'What day is today?',
-        'What day was yesterday?',
-        'What day will be tomorrow?',
-        'What colour is your top?',
+        { question: 'What is your favourite colour?', id: uuid(), type: 'red' },
+        { question: 'What is your favourite food?', id: uuid(), type: 'red' },
+        { question: 'What is your favourite fruit?', id: uuid(), type: 'red' },
+        { question: 'What is your favourite lesson?', id: uuid(), type: 'red' },
+        { question: 'What is your mum’s name?', id: uuid(), type: 'red' },
+        {
+            question: 'What is the weather like today?',
+            id: uuid(),
+            type: 'red',
+        },
+        { question: 'What day is today?', id: uuid(), type: 'red' },
+        { question: 'What day was yesterday?', id: uuid(), type: 'red' },
+        { question: 'What day will be tomorrow?', id: uuid(), type: 'red' },
+        { question: 'What colour is your top?', id: uuid(), type: 'red' },
     ],
     yellow: [
-        'What is Georgia doing?',
-        'What is Daniel doing?',
-        'What is Syeda doing?',
-        'What is Lauren doing?',
-        'What is Marianna doing?',
+        { question: 'What is Georgia doing?', id: uuid(), type: 'yellow' },
+        { question: 'What is Daniel doing?', id: uuid(), type: 'yellow' },
+        { question: 'What is Syeda doing?', id: uuid(), type: 'yellow' },
+        { question: 'What is Lauren doing?', id: uuid(), type: 'yellow' },
+        { question: 'What is Marianna doing?', id: uuid(), type: 'yellow' },
     ],
     green: [
-        'Who is this?',
-        'Who are you working with?',
-        'Who is your favourite teacher?',
-        'Who is your favourite friend?',
-        'Who is your favourite hero?',
-        'Who would you give a hug?',
+        { question: 'Who is this?', id: uuid(), type: 'green' },
+        { question: 'Who are you working with?', id: uuid(), type: 'green' },
+        {
+            question: 'Who is your favourite teacher?',
+            id: uuid(),
+            type: 'green',
+        },
+        {
+            question: 'Who is your favourite friend?',
+            id: uuid(),
+            type: 'green',
+        },
+        { question: 'Who is your favourite hero?', id: uuid(), type: 'green' },
+        { question: 'Who would you give a hug?', id: uuid(), type: 'green' },
     ],
-    finish: ['Congratulations for finishing!'],
+    finish: [
+        {
+            question: 'Congratulations for finishing!',
+            id: uuid(),
+            type: 'finish',
+        },
+    ],
 }
 
 export const startAuthListenerEpic = (action$, _, { firebase$ }) =>

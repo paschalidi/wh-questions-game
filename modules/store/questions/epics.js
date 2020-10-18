@@ -8,7 +8,11 @@ import {
     addNewQuestion,
     addNewQuestionCompleted,
     addNewQuestionFailed,
+    deleteQuestion,
+    deleteQuestionCompleted,
+    deleteQuestionFailed,
 } from './actions'
+import { v4 as uuid } from 'uuid'
 
 export const fetchExistingQuestionsEpic = (action$, state$, { firebase$ }) =>
     action$.pipe(
@@ -30,7 +34,7 @@ export const fetchExistingQuestionsEpic = (action$, state$, { firebase$ }) =>
         })
     )
 
-export const addNewQuestionsEpic = (action$, state$, { firebase$ }) =>
+export const addNewQuestionEpic = (action$, state$, { firebase$ }) =>
     action$.pipe(
         ofType(addNewQuestion),
         flatMap(({ payload: { question, setSubmitting, type } }) => {
@@ -42,7 +46,7 @@ export const addNewQuestionsEpic = (action$, state$, { firebase$ }) =>
                 .doc(uid)
                 .update({
                     [`questions.${type}`]: firebase$.firestore.FieldValue.arrayUnion(
-                        question
+                        { question, id: uuid() }
                     ),
                 })
             return from(profile$).pipe(
@@ -53,8 +57,35 @@ export const addNewQuestionsEpic = (action$, state$, { firebase$ }) =>
             )
         }),
         catchError(error => {
-            debugger
             console.warn(error)
             return of(addNewQuestionFailed(error))
+        })
+    )
+
+export const deleteQuestionEpic = (action$, state$, { firebase$ }) =>
+    action$.pipe(
+        ofType(deleteQuestion),
+        flatMap(({ payload: { id, type } }) => {
+            const { uid } = state$.value.authReducer.user
+            const { questions } = state$.value.questionsReducer
+
+            const newQuestions = questions[type].filter(
+                ({ id: questionId }) => questionId !== id
+            )
+            const profile$ = firebase$
+                .firestore()
+                .collection('users')
+                .doc(uid)
+                .update({
+                    [`questions.${type}`]: newQuestions,
+                })
+
+            return from(profile$).pipe(
+                map(() => deleteQuestionCompleted({ type, newQuestions }))
+            )
+        }),
+        catchError(error => {
+            console.warn(error)
+            return of(deleteQuestionFailed(error))
         })
     )

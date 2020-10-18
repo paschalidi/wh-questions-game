@@ -1,42 +1,34 @@
 import {
     addNewQuestionCompleted,
-    fetchExistingQuestions,
+    deleteQuestionCompleted,
     fetchExistingQuestionsCompleted,
-    fetchExistingQuestionsFailed,
 } from './actions'
+import { v4 as uuid } from 'uuid'
 
 import { createReducer } from '@reduxjs/toolkit'
 
-const statuses = {
-    LOADING: 'LOADING',
-    DEFAULT: 'DEFAULT',
-    ERROR: 'ERROR',
-}
 export const questionsReducer = createReducer(
     {
-        questionsPageStatus: statuses.LOADING,
         questions: {},
     },
     builder => {
         builder
-            .addCase(fetchExistingQuestions, state => {
-                state.questionsPageStatus = statuses.LOADING
-            })
             .addCase(
                 fetchExistingQuestionsCompleted,
                 (state, { payload: { questions } }) => {
-                    state.questionsPageStatus = statuses.DEFAULT
                     state.questions = questions
                 }
             )
-            .addCase(fetchExistingQuestionsFailed, state => {
-                state.questionsPageStatus = statuses.ERROR
-            })
             .addCase(
                 addNewQuestionCompleted,
                 (state, { payload: { question, type } }) => {
-                    state.questionsPageStatus = statuses.ERROR
-                    state.questions[type].push(question)
+                    state.questions[type].push({ question, id: uuid() })
+                }
+            )
+            .addCase(
+                deleteQuestionCompleted,
+                (state, { payload: { type, newQuestions } }) => {
+                    state.questions[type] = newQuestions
                 }
             )
     }

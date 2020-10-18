@@ -12,7 +12,8 @@ import { startAuthListenerEpic } from './auth/epics'
 import { userLoginEpic, userLogoutEpic } from './loginWithGoogle/epics'
 import {
     fetchExistingQuestionsEpic,
-    addNewQuestionsEpic,
+    addNewQuestionEpic,
+    deleteQuestionEpic,
 } from './questions/epics'
 import { gameEpic, openModalEpic, closeModalEpic } from './game/epics'
 import { firebase$ } from './firebase/config'
@@ -26,7 +27,8 @@ const rootEpic = combineEpics(
     openModalEpic,
     closeModalEpic,
     fetchExistingQuestionsEpic,
-    addNewQuestionsEpic
+    addNewQuestionEpic,
+    deleteQuestionEpic
 )
 
 const rootReducer = combineReducers({

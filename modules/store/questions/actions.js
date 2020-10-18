@@ -9,6 +9,17 @@ export const addNewQuestionFailed = createAction(
     '[questions] adding a new question failed'
 )
 
+export const deleteQuestion = createAction(
+    '[questions] deleting a new question'
+)
+
+export const deleteQuestionCompleted = createAction(
+    '[questions] deleting a new question completed'
+)
+export const deleteQuestionFailed = createAction(
+    '[questions] deleting a new question failed'
+)
+
 export const fetchExistingQuestions = createAction(
     '[questions] fetching all questions'
 )

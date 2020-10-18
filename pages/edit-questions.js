@@ -3,10 +3,21 @@ import { Formik } from 'formik'
 import {
     fetchExistingQuestions,
     addNewQuestion,
+    deleteQuestion,
 } from '../modules/store/questions/actions'
 import { useDispatch, useSelector } from 'react-redux'
 import { Row } from '../components/Grid/Row'
 import { Col } from '../components/Grid/Col'
+import { colors } from '../components/utils/colors'
+import styled from 'styled-components'
+
+const DeleteButton = styled.button`
+    background: ${colors.destructive};
+    color: ${colors.white};
+    border: none;
+    padding: 1px 2px;
+    border-radius: 2px;
+`
 
 const Form = ({ formId, onSubmit }) => {
     return (
@@ -92,13 +103,41 @@ const EditQuestions = () => {
 
     return (
         <>
+            <Row style={{ margin: '2vh 0' }}>
+                <Col lg={12}>
+                    Tip: deleting all questions from a list is impossible since
+                    you wont be able to play the game
+                </Col>
+            </Row>
             <Row>
                 {red && (
                     <Col lg={4}>
                         <h1>What questions</h1>
-                        {red.map(item => (
-                            <h3 key={item}>{item}</h3>
-                        ))}
+                        {Object.values(red).map(
+                            ({ question, id, type }, _, array) => (
+                                <Row key={id} fullWidth>
+                                    <Col lg={9}>
+                                        <h3>{question}</h3>
+                                    </Col>
+                                    <Col lg={1}>
+                                        {array.length !== 1 && (
+                                            <DeleteButton
+                                                onClick={() => {
+                                                    dispatch(
+                                                        deleteQuestion({
+                                                            id,
+                                                            type,
+                                                        })
+                                                    )
+                                                }}
+                                            >
+                                                delete
+                                            </DeleteButton>
+                                        )}
+                                    </Col>
+                                </Row>
+                            )
+                        )}
                         <Form
                             onSubmit={handleWhatQuestionSubmission}
                             formId="whatQuestion"
@@ -108,9 +147,31 @@ const EditQuestions = () => {
                 {yellow && (
                     <Col lg={4}>
                         <h1>What doing questions</h1>
-                        {yellow.map(item => (
-                            <h3 key={item}>{item}</h3>
-                        ))}
+                        {Object.values(yellow).map(
+                            ({ question, id, type }, _, array) => (
+                                <Row key={id} fullWidth>
+                                    <Col lg={9}>
+                                        <h3>{question}</h3>
+                                    </Col>
+                                    <Col lg={1}>
+                                        {array.length !== 1 && (
+                                            <DeleteButton
+                                                onClick={() => {
+                                                    dispatch(
+                                                        deleteQuestion({
+                                                            id,
+                                                            type,
+                                                        })
+                                                    )
+                                                }}
+                                            >
+                                                delete
+                                            </DeleteButton>
+                                        )}
+                                    </Col>
+                                </Row>
+                            )
+                        )}
                         <Form
                             onSubmit={handleWhatDoingQuestionSubmission}
                             formId="whatDoingQuestion"
@@ -120,9 +181,31 @@ const EditQuestions = () => {
                 {green && (
                     <Col lg={4}>
                         <h1>Who questions</h1>
-                        {green.map(item => (
-                            <h3 key={item}>{item}</h3>
-                        ))}
+                        {Object.values(green).map(
+                            ({ question, id, type }, _, array) => (
+                                <Row key={id} fullWidth>
+                                    <Col lg={9}>
+                                        <h3>{question}</h3>
+                                    </Col>
+                                    <Col lg={1}>
+                                        {array.length !== 1 && (
+                                            <DeleteButton
+                                                onClick={() => {
+                                                    dispatch(
+                                                        deleteQuestion({
+                                                            id,
+                                                            type,
+                                                        })
+                                                    )
+                                                }}
+                                            >
+                                                delete
+                                            </DeleteButton>
+                                        )}
+                                    </Col>
+                                </Row>
+                            )
+                        )}
                         <Form
                             onSubmit={handleWhoQuestionSubmission}
                             formId="whoQuestion"
