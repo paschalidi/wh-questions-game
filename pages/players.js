@@ -8,7 +8,7 @@ import { CharacterDropdown } from '../components/CharacterDropdown'
 import { FunkyButton } from '../components/FunkyButton'
 import { useDispatch } from 'react-redux'
 import { useRouter } from 'next/router'
-import { startGame } from '../modules/store/game/reducer'
+import { startGame } from '../modules/store/game/actions'
 
 export const Background = styled.div`
     color: white;

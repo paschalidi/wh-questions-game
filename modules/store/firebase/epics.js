@@ -8,5 +8,5 @@ export const startLoadingFirebaseEpic = action$ =>
     action$.pipe(
         ofType(loadingFirebaseCompleted),
         switchMap(() => concat(of(startAuthListener()))),
-        catchError(error => loadingFirebaseError(error))
+        catchError(error => of(loadingFirebaseError(error)))
     )

@@ -1,5 +1,5 @@
 import { createAction } from '@reduxjs/toolkit'
 
-export const postQuestion = createAction('[questions] post')
-export const postQuestionCompleted = createAction('[questions] complete')
-export const postQuestionFailed = createAction('[questions] failed')
+export const submitQuestion = createAction('[questions] sumbit')
+export const submitQuestionCompleted = createAction('[questions] complete')
+export const submitQuestionFailed = createAction('[questions] failed')
