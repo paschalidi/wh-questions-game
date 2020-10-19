@@ -1,5 +1,5 @@
 import { danger, warn, message } from 'danger'
-import { readFileSync } from 'fs'
+const fs = require('fs')
 
 export default async () => {
     // Rule: encourage all new files to be TypeScript
@@ -18,7 +18,7 @@ export default async () => {
         .filter(f => f.includes('.js'))
     const flowFixMeComments = ['$FlowFixMe']
     committedJsFiles.forEach(file => {
-        const content = readFileSync(file, 'utf8')
+        const content = fs.readFileSync(file, 'utf8')
         flowFixMeComments.forEach(comment => {
             if (content.includes(comment)) {
                 warn(
