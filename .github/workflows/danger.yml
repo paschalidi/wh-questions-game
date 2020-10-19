@@ -22,3 +22,5 @@ jobs:
               uses: danger/danger-js@10.5.0
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  # https://github.com/danger/danger-js/issues/557#issuecomment-664851950
+                  DANGER_DISABLE_TRANSPILATION: true
