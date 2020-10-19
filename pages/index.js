@@ -14,12 +14,16 @@ import { Background } from './players'
 import { useRouter } from 'next/router'
 
 const GoogleButton = styled(Button)`
-    line-height: initial;
     margin: 0 auto;
     font-size: 16px !important;
     font-weight: 200;
     line-height: 0.9rem !important;
     padding: 0.6rem 2rem;
+
+    .spanText {
+        padding-left: 12px;
+        line-height: initial;
+    }
 `
 
 const Wave = styled.span`
@@ -143,10 +147,8 @@ export default function Home() {
                                     <span>
                                         <GoogleIcon />
                                     </span>
-                                    <span className="abcRioButtonContents">
-                                        <span style={{ paddingLeft: 10 }}>
-                                            Sign in with Google
-                                        </span>
+                                    <span className="spanText">
+                                        Sign in with Google
                                     </span>
                                 </GoogleButton>
                             </Col>
