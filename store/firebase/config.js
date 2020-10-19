@@ -12,6 +12,7 @@ try {
         storageBucket: 'wh-questions-game.appspot.com',
         messagingSenderId: '416273758463',
         appId: '1:416273758463:web:6a2c8ef26794631da574ca',
+        measurementId: 'G-80BS5Y2MCY',
     })
     firebase.auth()
     firebase.firestore()
