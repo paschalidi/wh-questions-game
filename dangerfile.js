@@ -21,8 +21,9 @@ committedJsFiles.forEach(file => {
     const content = fs.readFileSync(file, 'utf8')
     flowFixMeComments.forEach(comment => {
         if (content.includes(comment)) {
+            const fileLink = danger.github.utils.fileLinks([file])
             warn(
-                `Danger found that in the \`${file}\` there is a flow comment: \`${comment}\`. \\n
+                `Danger found a flow comment: \`${comment}\` in ${fileLink}.
                 Perhaps you would like to see if this flow error can be easily fixed.`
             )
         }
