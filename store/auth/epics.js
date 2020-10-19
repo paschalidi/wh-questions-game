@@ -2,10 +2,11 @@ import { ofType } from 'redux-observable'
 import {
     setAuthenticated,
     setAuthenticatedError,
+    setAuthenticatedLoading,
     setUnauthenticated,
     startAuthListener,
 } from './actions'
-import { map, flatMap, catchError } from 'rxjs/operators'
+import { map, flatMap, catchError, startWith } from 'rxjs/operators'
 import { authState } from 'rxfire/auth'
 import { from, of } from 'rxjs'
 import { v4 as uuid } from 'uuid'
@@ -100,5 +101,6 @@ export const startAuthListenerEpic = (action$, _, { firebase$ }) =>
                     return of(setAuthenticatedError())
                 })
             )
-        })
+        }),
+        startWith(setAuthenticatedLoading())
     )

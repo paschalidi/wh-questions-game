@@ -10,6 +10,9 @@ export const setAuthenticated = createAction(
 export const setAuthenticatedError = createAction(
     '[auth] setting authenticated error'
 )
+export const setAuthenticatedLoading = createAction(
+    '[auth] setting authenticated loading'
+)
 export const setUnauthenticated = createAction(
     '[auth] setting unauthenticated user'
 )

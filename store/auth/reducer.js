@@ -1,4 +1,8 @@
-import { setAuthenticated, setUnauthenticated } from './actions'
+import {
+    setAuthenticated,
+    setAuthenticatedLoading,
+    setUnauthenticated,
+} from './actions'
 import { createReducer } from '@reduxjs/toolkit'
 
 export const authStatuses = {
@@ -29,6 +33,9 @@ export const authReducer = createReducer(
                 state.authStatus = authStatuses.NOT_LOGGED_IN
                 state.user = {}
                 state.profileLoaded = true
+            })
+            .addCase(setAuthenticatedLoading, state => {
+                state.authStatus = authStatuses.LOADING
             })
     }
 )
