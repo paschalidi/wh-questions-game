@@ -73,8 +73,7 @@ export const startAuthListenerEpic = (action$, _, { firebase$ }) =>
                             .doc(uid)
                         return from(document.get()).pipe(
                             flatMap(response => {
-                                const { questions } = response.data()
-                                if (!questions) {
+                                if (!response.data()) {
                                     return from(
                                         document.set({
                                             displayName,
