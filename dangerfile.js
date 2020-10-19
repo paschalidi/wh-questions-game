@@ -12,11 +12,9 @@ committedJsFiles.forEach(file => {
     if (content.includes(flowFixMeComment)) {
         const fileLink = danger.github.utils.fileLinks([file])
         warn(
-            `
-            Danger found a flow comment \`${flowFixMeComment}\` in a file you edited in this PR.
-            Perhaps you would like to see if this flow error can be easily fixed.
-            File: ${fileLink}.
-            `
+            `Found \`${flowFixMeComment}\` in a file you edited in this PR. 
+            Perhaps you would like to see if this flow error can be easily fixed. 
+            File: ${fileLink}.`
         )
     }
 })
