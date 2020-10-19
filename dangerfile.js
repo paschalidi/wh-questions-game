@@ -28,7 +28,7 @@ export default async () => {
             }
         })
     })
-    message(`you the bst`)
+    message(`you the best`)
 
     // No `debugger` statements.
     // danger.git.modified_files
