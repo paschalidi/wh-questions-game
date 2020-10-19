@@ -15,18 +15,20 @@ const fs = require('fs')
 const committedJsFiles = danger.git.created_files
     .concat(danger.git.modified_files)
     .filter(f => f.includes('.js'))
+
 const flowFixMeComments = ['$FlowFixMe']
 committedJsFiles.forEach(file => {
     const content = fs.readFileSync(file, 'utf8')
     flowFixMeComments.forEach(comment => {
         if (content.includes(comment)) {
             warn(
-                `Found a file you edited with a comment shortcut ${comment}. Perhaps you would like to see if this flow error can be easily fixed.`,
-                file
+                `Danger found that in the ${file} there is a flow comment: ${comment}. 
+                Perhaps you would like to see if this flow error can be easily fixed.`
             )
         }
     })
 })
+
 message(`you the best`)
 
 // No `debugger` statements.
