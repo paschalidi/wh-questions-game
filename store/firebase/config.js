@@ -15,6 +15,7 @@ try {
         appId: '1:416273758463:web:6a2c8ef26794631da574ca',
         measurementId: 'G-80BS5Y2MCY',
     })
+    // $FlowFixMe
     firebase.auth()
     firebase.firestore()
     firebase.analytics()

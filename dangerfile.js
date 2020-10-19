@@ -14,7 +14,7 @@ committedJsFiles.forEach(file => {
         warn(
             `Found \`${flowFixMeComment}\` in a file you edited in this PR. 
             Perhaps you would like to see if this flow error can be easily fixed. 
-            File: ${fileLink}.`
+            File: ${fileLink}`
         )
     }
 })
