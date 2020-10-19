@@ -22,7 +22,7 @@ committedJsFiles.forEach(file => {
     flowFixMeComments.forEach(comment => {
         if (content.includes(comment)) {
             warn(
-                `Danger found that in the ${file} there is a flow comment: ${comment}. 
+                `Danger found that in the \`${file}\` there is a flow comment: \`${comment}\`. \\n
                 Perhaps you would like to see if this flow error can be easily fixed.`
             )
         }
