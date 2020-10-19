@@ -2,6 +2,7 @@ import firebase from 'firebase/app'
 import 'firebase/firestore'
 import 'firebase/auth'
 import 'firebase/analytics'
+import 'firebase/performance'
 
 try {
     firebase.initializeApp({
@@ -17,6 +18,7 @@ try {
     firebase.auth()
     firebase.firestore()
     firebase.analytics()
+    firebase.performance()
 } catch (error) {
     /*
      * We skip the "already exists" message which is
