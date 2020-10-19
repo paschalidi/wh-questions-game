@@ -1,4 +1,4 @@
-import { danger, fail, warn } from 'danger'
+import { danger, warn, message } from 'danger'
 import { readFileSync } from 'fs'
 
 export default async () => {
@@ -28,6 +28,7 @@ export default async () => {
             }
         })
     })
+    message(`you the bst`)
 
     // No `debugger` statements.
     // danger.git.modified_files
