@@ -29,3 +29,14 @@ export const fetchExistingQuestionsCompleted = createAction(
 export const fetchExistingQuestionsFailed = createAction(
     '[questions] fetching all questions failed'
 )
+
+export const setImageUrl = createAction(
+    '[questions] setting an image url for the question'
+)
+
+export const setImageUrlCompleted = createAction(
+    '[questions]  setting an image url for the question completed'
+)
+export const setImageUrlFailed = createAction(
+    '[questions]  setting an image url for the question failed'
+)

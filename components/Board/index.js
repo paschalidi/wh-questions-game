@@ -103,10 +103,10 @@ const useQuestion = ({
     const steps = allPlayers[playingPlayerId].steps
     const questionType = deriveTheKindOfQuestion(steps)
     const questionsOfType = questions[questionType]
-    const { question } = questionsOfType[
+    const { question, imageUrl } = questionsOfType[
         Math.floor(Math.random() * questionsOfType.length)
     ]
-    return { question, questionType }
+    return { question, imageUrl, questionType }
 }
 
 Modal.setAppElement('#__next')
@@ -121,7 +121,7 @@ export const Board = () => {
         state => state.gameReducer.playingPlayerId
     )
     const { ref, width: stepSize } = useDimensions({})
-    const { question, questionType } = useQuestion({
+    const { question, imageUrl, questionType } = useQuestion({
         allPlayers,
         playingPlayerId,
         gameStatus,
@@ -166,6 +166,12 @@ export const Board = () => {
                 <Row position="center" textAlign="center">
                     <Col lg={12}>
                         <h1 style={{ margin: '20px 0 40px 0' }}>{question}</h1>
+                        {imageUrl && (
+                            <img
+                                src={imageUrl}
+                                style={{ height: '50vh', marginBottom: 40 }}
+                            />
+                        )}
                         <Row position="center" textAlign="center">
                             {questionType === 'finish' ? (
                                 <Col lg={6}>
@@ -291,6 +297,7 @@ export const Board = () => {
                                                         3: 7,
                                                         4: 6,
                                                         5: 6,
+                                                        6: 6,
                                                     }
                                                     return (
                                                         <Col

@@ -107,30 +107,35 @@ const H1 = styled.h1`
 `
 
 const AVAILABLE_PLAYERS = {
-    pizza: {
-        name: 'pizza',
-        icon: '🍕',
-        desc: 'My favourite italian food',
+    lion: {
+        name: 'lion',
+        icon: '🦁',
+        desc: 'I can roar!',
     },
-    tacos: {
-        name: 'tacos',
-        icon: '🌮',
-        desc: 'My favourite Mexican food',
+    fox: {
+        name: 'fox',
+        icon: '🦊',
+        desc: 'I eat chicken!',
     },
-    burger: {
-        name: 'burger',
-        icon: '🍔',
-        desc: 'My favourite food from Mc donalds',
+    snake: {
+        name: 'snake',
+        icon: '🐍',
+        desc: 'I can hiss!',
     },
-    burrito: {
-        name: 'burrito',
-        icon: '🌯',
-        desc: 'My favoute italian food',
+    dolphin: {
+        name: 'dolphin',
+        icon: '🐬',
+        desc: 'I can swim fast!',
     },
-    sushi: {
-        name: 'sushi',
-        icon: '🍣',
-        desc: 'My favoute italian food',
+    parrot: {
+        name: 'parrot',
+        icon: '🦜',
+        desc: 'I can fly!',
+    },
+    dinosaur: {
+        name: 'dinosaur',
+        icon: '🦖',
+        desc: 'I can stomp!',
     },
 }
 

@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Formik } from 'formik'
 import {
     fetchExistingQuestions,
     addNewQuestion,
     deleteQuestion,
+    setImageUrl,
 } from '../store/questions/actions'
 import { useDispatch, useSelector } from 'react-redux'
 import { Row } from '../components/Grid/Row'
@@ -17,35 +18,98 @@ const DeleteButton = styled.button`
     border: none;
     padding: 1px 2px;
     border-radius: 2px;
+    &:hover {
+        cursor: pointer;
+        background-color: ${colors.destructiveActive};
+    }
+`
+const ViewImageAnchor = styled.a`
+    font-size: 13.3333px;
+
+    font-family: Arial;
+    padding: 1px 2px;
+    border-radius: 2px;
+    background-color: ${colors.green};
+    border: none;
+    color: white;
+    &:hover {
+        background-color: ${colors.affirmative};
+    }
+
+    a:active {
+        background-color: ${colors.affirmative};
+    }
 `
 
-const Form = ({ formId, onSubmit }) => {
+const Form = ({ formId, onSubmit, onFileChange }) => {
+    const isUploadingPhoto = useSelector(
+        state => state.questionsReducer.imagesUrl[formId].isUploadingPhoto
+    )
     return (
-        <Formik initialValues={{ [formId]: '' }} onSubmit={onSubmit}>
-            {({
-                values,
-                errors,
-                touched,
-                handleChange,
-                handleBlur,
-                handleSubmit,
-                isSubmitting,
-            }) => (
-                <form onSubmit={handleSubmit}>
-                    <input
-                        type="text"
-                        name={formId}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        value={values[formId]}
-                    />
-                    {errors[formId] && touched[formId] && errors[formId]}
-                    <button type="submit" disabled={isSubmitting}>
-                        Add new
-                    </button>
-                </form>
-            )}
-        </Formik>
+        <Row fullWidth style={{ paddingTop: '4vh' }}>
+            <Col lg={10}>
+                <Formik
+                    initialValues={{ [formId]: '' }}
+                    onSubmit={onSubmit}
+                    validate={values => {
+                        const errors = {}
+                        if (!values[formId]) {
+                            errors[formId] = 'Question required *'
+                        }
+                        return errors
+                    }}
+                >
+                    {({
+                        values,
+                        errors,
+                        touched,
+                        handleChange,
+                        handleSubmit,
+                        isSubmitting,
+                    }) => (
+                        <form
+                            onSubmit={handleSubmit}
+                            style={{ fontFamily: 'Arial' }}
+                        >
+                            <div>
+                                <div
+                                    style={{
+                                        fontSize: 13,
+                                        color: colors.destructive,
+                                    }}
+                                >
+                                    {errors[formId] &&
+                                        touched[formId] &&
+                                        `${errors[formId]}`}
+                                </div>
+                                <input
+                                    style={{ width: '100%' }}
+                                    type="text"
+                                    name={formId}
+                                    onChange={handleChange}
+                                    value={values[formId]}
+                                />
+                            </div>
+                            <div>
+                                <input
+                                    style={{ width: '100%' }}
+                                    type="file"
+                                    onChange={e => onFileChange(e, formId)}
+                                />
+                            </div>
+
+                            <button
+                                type="submit"
+                                disabled={isSubmitting || isUploadingPhoto}
+                                style={{ width: '100%', marginTop: 8 }}
+                            >
+                                Add new question
+                            </button>
+                        </form>
+                    )}
+                </Formik>
+            </Col>
+        </Row>
     )
 }
 const EditQuestions = () => {
@@ -62,8 +126,8 @@ const EditQuestions = () => {
     }, [uid, dispatch, fetchExistingQuestions])
 
     const handleWhatQuestionSubmission = (
-        { whatQuestion },
-        { setSubmitting }
+        { red: whatQuestion },
+        { setSubmitting, resetForm }
     ) => {
         setSubmitting(true)
         dispatch(
@@ -71,12 +135,13 @@ const EditQuestions = () => {
                 type: 'red',
                 question: whatQuestion,
                 setSubmitting,
+                resetForm,
             })
         )
     }
     const handleWhatDoingQuestionSubmission = (
-        { whatDoingQuestion },
-        { setSubmitting }
+        { yellow: whatDoingQuestion },
+        { setSubmitting, resetForm }
     ) => {
         setSubmitting(true)
         return dispatch(
@@ -84,12 +149,13 @@ const EditQuestions = () => {
                 type: 'yellow',
                 question: whatDoingQuestion,
                 setSubmitting,
+                resetForm,
             })
         )
     }
     const handleWhoQuestionSubmission = (
-        { whoQuestion },
-        { setSubmitting }
+        { green: whoQuestion },
+        { setSubmitting, resetForm }
     ) => {
         setSubmitting(true)
         return dispatch(
@@ -97,29 +163,50 @@ const EditQuestions = () => {
                 type: 'green',
                 question: whoQuestion,
                 setSubmitting,
+                resetForm,
             })
         )
     }
 
+    const handleFileChange = (e, type) => {
+        if (e.target.files[0]) {
+            // todo
+            dispatch(setImageUrl({ file: e.target.files[0], type }))
+        }
+    }
+
     return (
         <>
-            <Row style={{ margin: '2vh 0' }}>
+            <Row fullWidth style={{ margin: '2vh 0' }} textAlign="center">
                 <Col lg={12}>
-                    Tip: deleting all questions from a list is impossible since
-                    you wont be able to play the game
+                    <h3>
+                        Tip: While adding questions you can optionally add an
+                        image to the question
+                    </h3>
                 </Col>
             </Row>
-            <Row>
+            <Row fullWidth>
                 {red && (
-                    <Col lg={4}>
+                    <Col offset={1} lg={3}>
                         <h1>What questions</h1>
                         {Object.values(red).map(
-                            ({ question, id, type }, _, array) => (
+                            ({ question, id, type, imageUrl }, _, array) => (
                                 <Row key={id} fullWidth>
-                                    <Col lg={9}>
+                                    <Col lg={8}>
                                         <h3>{question}</h3>
                                     </Col>
-                                    <Col lg={1}>
+                                    <Col lg={2}>
+                                        {imageUrl && (
+                                            <ViewImageAnchor
+                                                href={imageUrl}
+                                                target="_blank"
+                                                rel="noreferrer"
+                                            >
+                                                image
+                                            </ViewImageAnchor>
+                                        )}
+                                    </Col>
+                                    <Col lg={2}>
                                         {array.length !== 1 && (
                                             <DeleteButton
                                                 onClick={() => {
@@ -139,21 +226,34 @@ const EditQuestions = () => {
                             )
                         )}
                         <Form
+                            onFileChange={handleFileChange}
                             onSubmit={handleWhatQuestionSubmission}
-                            formId="whatQuestion"
+                            formId="red"
                         />
                     </Col>
                 )}
                 {yellow && (
-                    <Col lg={4}>
+                    <Col offset={1} lg={3}>
                         <h1>What doing questions</h1>
                         {Object.values(yellow).map(
-                            ({ question, id, type }, _, array) => (
+                            ({ question, id, type, imageUrl }, _, array) => (
                                 <Row key={id} fullWidth>
-                                    <Col lg={9}>
+                                    {console.log(type)}
+                                    <Col lg={8}>
                                         <h3>{question}</h3>
                                     </Col>
-                                    <Col lg={1}>
+                                    <Col lg={2}>
+                                        {imageUrl && (
+                                            <ViewImageAnchor
+                                                href={imageUrl}
+                                                target="_blank"
+                                                rel="noreferrer"
+                                            >
+                                                image
+                                            </ViewImageAnchor>
+                                        )}
+                                    </Col>
+                                    <Col lg={2}>
                                         {array.length !== 1 && (
                                             <DeleteButton
                                                 onClick={() => {
@@ -173,21 +273,33 @@ const EditQuestions = () => {
                             )
                         )}
                         <Form
+                            onFileChange={handleFileChange}
                             onSubmit={handleWhatDoingQuestionSubmission}
-                            formId="whatDoingQuestion"
+                            formId="yellow"
                         />
                     </Col>
                 )}
                 {green && (
-                    <Col lg={4}>
+                    <Col offset={1} lg={3}>
                         <h1>Who questions</h1>
                         {Object.values(green).map(
-                            ({ question, id, type }, _, array) => (
+                            ({ question, id, type, imageUrl }, _, array) => (
                                 <Row key={id} fullWidth>
-                                    <Col lg={9}>
+                                    <Col lg={8}>
                                         <h3>{question}</h3>
                                     </Col>
-                                    <Col lg={1}>
+                                    <Col lg={2}>
+                                        {imageUrl && (
+                                            <ViewImageAnchor
+                                                href={imageUrl}
+                                                target="_blank"
+                                                rel="noreferrer"
+                                            >
+                                                image
+                                            </ViewImageAnchor>
+                                        )}
+                                    </Col>
+                                    <Col lg={2}>
                                         {array.length !== 1 && (
                                             <DeleteButton
                                                 onClick={() => {
@@ -206,9 +318,11 @@ const EditQuestions = () => {
                                 </Row>
                             )
                         )}
+
                         <Form
+                            onFileChange={handleFileChange}
                             onSubmit={handleWhoQuestionSubmission}
-                            formId="whoQuestion"
+                            formId="green"
                         />
                     </Col>
                 )}

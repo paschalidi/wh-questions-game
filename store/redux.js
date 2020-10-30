@@ -14,6 +14,7 @@ import {
     fetchExistingQuestionsEpic,
     addNewQuestionEpic,
     deleteQuestionEpic,
+    setImageUrlEpic,
 } from './questions/epics'
 import { gameEpic, openModalEpic, closeModalEpic } from './game/epics'
 import { firebase$ } from './firebase/config'
@@ -28,7 +29,8 @@ const rootEpic = combineEpics(
     closeModalEpic,
     fetchExistingQuestionsEpic,
     addNewQuestionEpic,
-    deleteQuestionEpic
+    deleteQuestionEpic,
+    setImageUrlEpic
 )
 
 const rootReducer = combineReducers({
