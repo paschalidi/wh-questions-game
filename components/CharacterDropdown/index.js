@@ -188,6 +188,7 @@ export const CharacterDropdown = ({
                                                 handlePlayerSelections(name)
                                             }
                                         >
+                                            
                                             <span className="itemIcon ">
                                                 {icon}
                                             </span>
