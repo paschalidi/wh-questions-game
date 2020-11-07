@@ -64,6 +64,17 @@ const FunkyDropdownMenu = styled.div`
         transition: color 0.5s ease-in-out;
         border-bottom: 0.15rem solid #f54768;
     }
+    .itemLabelWithoutBorder {
+        -webkit-box-flex: 1;
+        flex: 1;
+        position: relative;
+        z-index: 1;
+        overflow: hidden;
+        text-transform: uppercase;
+        letter-spacing: 0.15rem;
+        -webkit-transition: color 0.5s ease-in-out;
+        transition: color 0.5s ease-in-out;
+    }
     .item {
         cursor: pointer;
     }
@@ -181,7 +192,7 @@ export const CharacterDropdown = ({
                     <div style={{ width: width + 5 }}>
                         <ul className="selectorOptions">
                             {Object.values(AVAILABLE_PLAYERS).map(
-                                ({ name, icon }) => (
+                                ({ name, icon }, index) => (
                                     <li key={name}>
                                         <div
                                             className="item"
@@ -192,7 +203,16 @@ export const CharacterDropdown = ({
                                             <span className="itemIcon ">
                                                 {icon}
                                             </span>
-                                            <span className="itemLabel">
+                                            <span
+                                                className={
+                                                    Object.values(
+                                                        AVAILABLE_PLAYERS
+                                                    ).length ===
+                                                    index + 1
+                                                        ? 'itemLabelWithoutBorder'
+                                                        : 'itemLabel'
+                                                }
+                                            >
                                                 {name}
                                             </span>
                                         </div>
