@@ -2,7 +2,7 @@ export const RainbowIcon = () => (
     <svg
         id="Capa_1"
         enableBackground="new 0 0 512 512"
-        style={{ height: 103, width: 103 }}
+        style={{ height: '7vw', width: '7vw' }}
         height="512"
         viewBox="0 0 512 512"
         width="512"
