@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import useDimensions from 'react-use-dimensions'
 import { FunkyButton } from '../FunkyButton'
+import { colors } from '../utils/colors'
 
 const CardStyles = styled.div`
     position: relative;
@@ -23,7 +24,7 @@ const FunkyDropdownButton = styled(FunkyButton)`
 const FunkyDropdownMenu = styled.div`
     z-index: 1;
     position: absolute;
-    transform: translateY(1vh);
+    transform: ${props => `translate(${props.width}px, 1vh)`};
 
     .selectorOptions {
         overflow: hidden;
@@ -46,34 +47,12 @@ const FunkyDropdownMenu = styled.div`
         padding-inline-start: 40px;
     }
 
-    .itemIcon,
-    .itemLabel {
+    .itemIcon {
+        font-size: 50px;
         display: block;
-        padding: 0.25rem 1rem;
-        pointer-events: none;
-    }
-    .itemLabel {
-        -webkit-box-flex: 1;
-        flex: 1;
-        position: relative;
-        z-index: 1;
-        overflow: hidden;
-        text-transform: uppercase;
-        letter-spacing: 0.15rem;
         -webkit-transition: color 0.5s ease-in-out;
         transition: color 0.5s ease-in-out;
-        border-bottom: 0.15rem solid #f54768;
-    }
-    .itemLabelWithoutBorder {
-        -webkit-box-flex: 1;
-        flex: 1;
-        position: relative;
-        z-index: 1;
-        overflow: hidden;
-        text-transform: uppercase;
-        letter-spacing: 0.15rem;
-        -webkit-transition: color 0.5s ease-in-out;
-        transition: color 0.5s ease-in-out;
+        border-bottom: none;
     }
     .item {
         cursor: pointer;
@@ -85,7 +64,7 @@ const FunkyDropdownMenu = styled.div`
         transition: background-color ease 0.2s;
 
         .itemIcon {
-            background: #011;
+            background: ${colors.pink};
         }
     }
 `
@@ -187,12 +166,12 @@ export const CharacterDropdown = ({
                     : '👉 Choose character 👈'}
             </FunkyDropdownButton>
 
-            <FunkyDropdownMenu>
+            <FunkyDropdownMenu width={width / 2 - 50}>
                 {menuId === openMenuId && (
-                    <div style={{ width: width + 5 }}>
+                    <div style={{ width: 100 }}>
                         <ul className="selectorOptions">
                             {Object.values(AVAILABLE_PLAYERS).map(
-                                ({ name, icon }, index) => (
+                                ({ name, icon }) => (
                                     <li key={name}>
                                         <div
                                             className="item"
@@ -200,20 +179,8 @@ export const CharacterDropdown = ({
                                                 handlePlayerSelections(name)
                                             }
                                         >
-                                            <span className="itemIcon ">
+                                            <span className={'itemIcon'}>
                                                 {icon}
-                                            </span>
-                                            <span
-                                                className={
-                                                    Object.values(
-                                                        AVAILABLE_PLAYERS
-                                                    ).length ===
-                                                    index + 1
-                                                        ? 'itemLabelWithoutBorder'
-                                                        : 'itemLabel'
-                                                }
-                                            >
-                                                {name}
                                             </span>
                                         </div>
                                     </li>
