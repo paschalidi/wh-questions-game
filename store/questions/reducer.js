@@ -8,6 +8,7 @@ import {
 import { v4 as uuid } from 'uuid'
 
 import { createReducer } from '@reduxjs/toolkit'
+import { answerCorrect, answerFalse } from '../game/actions'
 
 export const questionsReducer = createReducer(
     {
@@ -53,5 +54,21 @@ export const questionsReducer = createReducer(
                     state.imagesUrl[type].isUploadingPhoto = false
                 }
             )
+            .addCase(answerCorrect, (state, { payload: { id, type } }) => {
+                state.questions = {
+                    ...state.questions,
+                    [type]: state.questions[type].filter(
+                        ({ id: questionId }) => questionId !== id
+                    ),
+                }
+            })
+            .addCase(answerFalse, (state, { payload: { id, type } }) => {
+                state.questions = {
+                    ...state.questions,
+                    [type]: state.questions[type].filter(
+                        ({ id: questionId }) => questionId !== id
+                    ),
+                }
+            })
     }
 )

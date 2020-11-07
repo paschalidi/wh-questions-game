@@ -102,11 +102,8 @@ const useQuestion = ({
     }
     const steps = allPlayers[playingPlayerId].steps
     const questionType = deriveTheKindOfQuestion(steps)
-    const questionsOfType = questions[questionType]
-    const { question, imageUrl } = questionsOfType[
-        Math.floor(Math.random() * questionsOfType.length)
-    ]
-    return { question, imageUrl, questionType }
+    const { question, imageUrl, id } = questions[questionType][0]
+    return { question, imageUrl, questionType, id }
 }
 
 Modal.setAppElement('#__next')
@@ -121,7 +118,7 @@ export const Board = () => {
         state => state.gameReducer.playingPlayerId
     )
     const { ref, width: stepSize } = useDimensions({})
-    const { question, imageUrl, questionType } = useQuestion({
+    const { question, imageUrl, questionType, id } = useQuestion({
         allPlayers,
         playingPlayerId,
         gameStatus,
@@ -190,7 +187,12 @@ export const Board = () => {
                                             style={{ margin: '0 auto' }}
                                             type="red"
                                             onClick={() =>
-                                                dispatch(answerFalse())
+                                                dispatch(
+                                                    answerFalse({
+                                                        id,
+                                                        type: questionType,
+                                                    })
+                                                )
                                             }
                                         >
                                             Not correct
@@ -203,7 +205,8 @@ export const Board = () => {
                                             onClick={() =>
                                                 dispatch(
                                                     answerCorrect({
-                                                        playingPlayerId,
+                                                        id,
+                                                        type: questionType,
                                                     })
                                                 )
                                             }

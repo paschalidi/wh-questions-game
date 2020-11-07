@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { Formik } from 'formik'
 import {
     fetchExistingQuestions,
@@ -12,6 +12,13 @@ import { Col } from '../components/Grid/Col'
 import { colors } from '../components/utils/colors'
 import styled from 'styled-components'
 
+const List = styled.div`
+    margin: 4vh 0;
+`
+
+const BorderBottom = styled.div`
+    border-bottom: 1px solid ${colors.textPrimary};
+`
 const DeleteButton = styled.button`
     background: ${colors.destructive};
     color: ${colors.white};
@@ -46,7 +53,7 @@ const Form = ({ formId, onSubmit, onFileChange }) => {
         state => state.questionsReducer.imagesUrl[formId].isUploadingPhoto
     )
     return (
-        <Row fullWidth style={{ paddingTop: '4vh' }}>
+        <Row fullWidth>
             <Col lg={10}>
                 <Formik
                     initialValues={{ [formId]: '' }}
@@ -112,6 +119,13 @@ const Form = ({ formId, onSubmit, onFileChange }) => {
         </Row>
     )
 }
+
+const minQuestionsPerType = {
+    red: 9,
+    yellow: 4,
+    green: 5,
+}
+
 const EditQuestions = () => {
     const dispatch = useDispatch()
     const { red, yellow, green } = useSelector(
@@ -186,46 +200,56 @@ const EditQuestions = () => {
                     </h3>
                 </Col>
             </Row>
-            <Row fullWidth>
+            <Row fullWidth position="center" space="evenly">
                 {red && (
-                    <Col offset={1} lg={3}>
+                    <Col lg={3}>
                         <h2>What questions - red tiles</h2>
-                        {Object.values(red).map(
-                            ({ question, id, type, imageUrl }, _, array) => (
-                                <Row key={id} fullWidth>
-                                    <Col lg={8}>
-                                        <h3>{question}</h3>
-                                    </Col>
-                                    <Col lg={2}>
-                                        {imageUrl && (
-                                            <ViewImageAnchor
-                                                href={imageUrl}
-                                                target="_blank"
-                                                rel="noreferrer"
-                                            >
-                                                image
-                                            </ViewImageAnchor>
-                                        )}
-                                    </Col>
-                                    <Col lg={2}>
-                                        {array.length !== 1 && (
-                                            <DeleteButton
-                                                onClick={() => {
-                                                    dispatch(
-                                                        deleteQuestion({
-                                                            id,
-                                                            type,
-                                                        })
-                                                    )
-                                                }}
-                                            >
-                                                delete
-                                            </DeleteButton>
-                                        )}
-                                    </Col>
-                                </Row>
-                            )
-                        )}
+                        <BorderBottom>
+                            Minimum number of questions possible is 9
+                        </BorderBottom>
+                        <List>
+                            {Object.values(red).map(
+                                (
+                                    { question, id, type, imageUrl },
+                                    _,
+                                    array
+                                ) => (
+                                    <Row key={id} fullWidth>
+                                        <Col lg={8}>
+                                            <h3>{question}</h3>
+                                        </Col>
+                                        <Col lg={2}>
+                                            {imageUrl && (
+                                                <ViewImageAnchor
+                                                    href={imageUrl}
+                                                    target="_blank"
+                                                    rel="noreferrer"
+                                                >
+                                                    image
+                                                </ViewImageAnchor>
+                                            )}
+                                        </Col>
+                                        <Col lg={2}>
+                                            {array.length >
+                                                minQuestionsPerType[type] && (
+                                                <DeleteButton
+                                                    onClick={() => {
+                                                        dispatch(
+                                                            deleteQuestion({
+                                                                id,
+                                                                type,
+                                                            })
+                                                        )
+                                                    }}
+                                                >
+                                                    delete
+                                                </DeleteButton>
+                                            )}
+                                        </Col>
+                                    </Row>
+                                )
+                            )}
+                        </List>
                         <Form
                             onFileChange={handleFileChange}
                             onSubmit={handleWhatQuestionSubmission}
@@ -234,45 +258,55 @@ const EditQuestions = () => {
                     </Col>
                 )}
                 {yellow && (
-                    <Col offset={1} lg={3}>
+                    <Col lg={3}>
                         <h2>What doing questions - yellow tiles</h2>
-                        {Object.values(yellow).map(
-                            ({ question, id, type, imageUrl }, _, array) => (
-                                <Row key={id} fullWidth>
-                                    {console.log(type)}
-                                    <Col lg={8}>
-                                        <h3>{question}</h3>
-                                    </Col>
-                                    <Col lg={2}>
-                                        {imageUrl && (
-                                            <ViewImageAnchor
-                                                href={imageUrl}
-                                                target="_blank"
-                                                rel="noreferrer"
-                                            >
-                                                image
-                                            </ViewImageAnchor>
-                                        )}
-                                    </Col>
-                                    <Col lg={2}>
-                                        {array.length !== 1 && (
-                                            <DeleteButton
-                                                onClick={() => {
-                                                    dispatch(
-                                                        deleteQuestion({
-                                                            id,
-                                                            type,
-                                                        })
-                                                    )
-                                                }}
-                                            >
-                                                delete
-                                            </DeleteButton>
-                                        )}
-                                    </Col>
-                                </Row>
-                            )
-                        )}
+                        <BorderBottom>
+                            Minimum number of questions possible is 4
+                        </BorderBottom>
+                        <List>
+                            {Object.values(yellow).map(
+                                (
+                                    { question, id, type, imageUrl },
+                                    _,
+                                    array
+                                ) => (
+                                    <Row key={id} fullWidth>
+                                        {console.log(type)}
+                                        <Col lg={8}>
+                                            <h3>{question}</h3>
+                                        </Col>
+                                        <Col lg={2}>
+                                            {imageUrl && (
+                                                <ViewImageAnchor
+                                                    href={imageUrl}
+                                                    target="_blank"
+                                                    rel="noreferrer"
+                                                >
+                                                    image
+                                                </ViewImageAnchor>
+                                            )}
+                                        </Col>
+                                        <Col lg={2}>
+                                            {array.length >
+                                                minQuestionsPerType[type] && (
+                                                <DeleteButton
+                                                    onClick={() => {
+                                                        dispatch(
+                                                            deleteQuestion({
+                                                                id,
+                                                                type,
+                                                            })
+                                                        )
+                                                    }}
+                                                >
+                                                    delete
+                                                </DeleteButton>
+                                            )}
+                                        </Col>
+                                    </Row>
+                                )
+                            )}
+                        </List>
                         <Form
                             onFileChange={handleFileChange}
                             onSubmit={handleWhatDoingQuestionSubmission}
@@ -281,45 +315,54 @@ const EditQuestions = () => {
                     </Col>
                 )}
                 {green && (
-                    <Col offset={1} lg={3}>
+                    <Col lg={3}>
                         <h2>Who questions - green tiles</h2>
-                        {Object.values(green).map(
-                            ({ question, id, type, imageUrl }, _, array) => (
-                                <Row key={id} fullWidth>
-                                    <Col lg={8}>
-                                        <h3>{question}</h3>
-                                    </Col>
-                                    <Col lg={2}>
-                                        {imageUrl && (
-                                            <ViewImageAnchor
-                                                href={imageUrl}
-                                                target="_blank"
-                                                rel="noreferrer"
-                                            >
-                                                image
-                                            </ViewImageAnchor>
-                                        )}
-                                    </Col>
-                                    <Col lg={2}>
-                                        {array.length !== 1 && (
-                                            <DeleteButton
-                                                onClick={() => {
-                                                    dispatch(
-                                                        deleteQuestion({
-                                                            id,
-                                                            type,
-                                                        })
-                                                    )
-                                                }}
-                                            >
-                                                delete
-                                            </DeleteButton>
-                                        )}
-                                    </Col>
-                                </Row>
-                            )
-                        )}
-
+                        <BorderBottom>
+                            Minimum number of questions possible is 5
+                        </BorderBottom>
+                        <List>
+                            {Object.values(green).map(
+                                (
+                                    { question, id, type, imageUrl },
+                                    _,
+                                    array
+                                ) => (
+                                    <Row key={id} fullWidth>
+                                        <Col lg={8}>
+                                            <h3>{question}</h3>
+                                        </Col>
+                                        <Col lg={2}>
+                                            {imageUrl && (
+                                                <ViewImageAnchor
+                                                    href={imageUrl}
+                                                    target="_blank"
+                                                    rel="noreferrer"
+                                                >
+                                                    image
+                                                </ViewImageAnchor>
+                                            )}
+                                        </Col>
+                                        <Col lg={2}>
+                                            {array.length >
+                                                minQuestionsPerType[type] && (
+                                                <DeleteButton
+                                                    onClick={() => {
+                                                        dispatch(
+                                                            deleteQuestion({
+                                                                id,
+                                                                type,
+                                                            })
+                                                        )
+                                                    }}
+                                                >
+                                                    delete
+                                                </DeleteButton>
+                                            )}
+                                        </Col>
+                                    </Row>
+                                )
+                            )}
+                        </List>
                         <Form
                             onFileChange={handleFileChange}
                             onSubmit={handleWhoQuestionSubmission}
