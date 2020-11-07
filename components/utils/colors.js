@@ -28,4 +28,8 @@ export const colors = {
     yellowBackgroundLight: '#FFF6D1',
     textInactive: '#BFBFBF',
     background: '#F2F3F4',
+
+    redTile: '#e71d36',
+    yellowTile: '#ffff3f',
+    greenTile: '#2b9348',
 }

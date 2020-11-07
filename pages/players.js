@@ -9,6 +9,7 @@ import { FunkyButton } from '../components/FunkyButton'
 import { useDispatch } from 'react-redux'
 import { useRouter } from 'next/router'
 import { startGame } from '../store/game/actions'
+import { colors } from '../components/utils/colors'
 
 export const Background = styled.div`
     color: white;
@@ -72,7 +73,23 @@ export default function Players({}) {
                     </Col>
                 </Row>
             ) : (
-                <div style={{ height: 'calc(6vh + 61px)' }} />
+                <div style={{ height: 'calc(6vh + 61px)' }}>
+                    <Row
+                        fullWidth
+                        space="evenly"
+                        verticalAlign="top"
+                        textAlign="center"
+                    >
+                        <Col>
+                            <h2 style={{ padding: '4vh 0 2vh 0' }}>
+                                To start the game you have to select{' '}
+                                <b style={{ color: colors.green }}>
+                                    at least two players
+                                </b>
+                            </h2>
+                        </Col>
+                    </Row>
+                </div>
             )}
 
             <Row

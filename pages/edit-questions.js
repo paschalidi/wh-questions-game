@@ -181,14 +181,15 @@ const EditQuestions = () => {
                 <Col lg={12}>
                     <h3>
                         Tip: While adding questions you can optionally add an
-                        image to the question
+                        image to the question. <br /> To do so click on the
+                        choose file button.
                     </h3>
                 </Col>
             </Row>
             <Row fullWidth>
                 {red && (
                     <Col offset={1} lg={3}>
-                        <h1>What questions</h1>
+                        <h2>What questions - red tiles</h2>
                         {Object.values(red).map(
                             ({ question, id, type, imageUrl }, _, array) => (
                                 <Row key={id} fullWidth>
@@ -234,7 +235,7 @@ const EditQuestions = () => {
                 )}
                 {yellow && (
                     <Col offset={1} lg={3}>
-                        <h1>What doing questions</h1>
+                        <h2>What doing questions - yellow tiles</h2>
                         {Object.values(yellow).map(
                             ({ question, id, type, imageUrl }, _, array) => (
                                 <Row key={id} fullWidth>
@@ -281,7 +282,7 @@ const EditQuestions = () => {
                 )}
                 {green && (
                     <Col offset={1} lg={3}>
-                        <h1>Who questions</h1>
+                        <h2>Who questions - green tiles</h2>
                         {Object.values(green).map(
                             ({ question, id, type, imageUrl }, _, array) => (
                                 <Row key={id} fullWidth>

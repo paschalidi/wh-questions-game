@@ -37,18 +37,18 @@ const CardWhite = styled.div`
 const CardGreen = styled.div`
     ${sharedCardStyles}
 
-    background-color: #2b9348;
+    background-color: ${colors.greenTile};
     border-color: #007f5f;
 `
 const CardYellow = styled.div`
     ${sharedCardStyles}
-    background-color: #ffff3f;
+    background-color: ${colors.yellowTile};
     border-color: #fdf148;
 `
 const CardRed = styled.div`
     ${sharedCardStyles}
     background-color: #e71d36;
-    border-color: #f94144;
+    background-color: ${colors.redTile};
 `
 const H1 = styled.h1`
     color: ${({ isPlaying }) => (isPlaying ? '#06d6a0' : 'white')};

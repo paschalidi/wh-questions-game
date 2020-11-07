@@ -76,8 +76,8 @@ export default function Home() {
             {authStatus === authStatuses.LOGGED_IN && (
                 <>
                     <Background>
-                        <Row textAlign="center">
-                            <Col>
+                        <Row textAlign="center" position="center">
+                            <Col lg={6}>
                                 <h1 style={{ paddingTop: '10vh' }}>
                                     <Wave>👋</Wave> {displayName}
                                 </h1>
@@ -96,13 +96,18 @@ export default function Home() {
                                     </a>{' '}
                                     to start the game!!
                                 </h1>
-                                <h2
+                                <h1
                                     style={{
-                                        marginTop: '10vh',
-                                        color: colors.secondary,
+                                        marginTop: '6vh',
+                                        color: colors.green,
                                     }}
                                 >
-                                    To add more questions to your games click
+                                    Customize your questions
+                                </h1>
+                                <h2>
+                                    You can add your own questions to the game!!
+                                    <br />
+                                    To add more questions click
                                     <a
                                         onClick={() => {
                                             router.push('/edit-questions')
@@ -116,6 +121,101 @@ export default function Home() {
                                         here
                                     </a>
                                 </h2>
+
+                                <h1
+                                    style={{
+                                        marginTop: '6vh',
+                                        color: colors.green,
+                                    }}
+                                >
+                                    How to play
+                                </h1>
+                                <div
+                                    style={{
+                                        textAlign: 'left',
+                                        marginBottom: '10vh',
+                                    }}
+                                >
+                                    <h3>
+                                        To start the game you have to select at
+                                        least two players. <br /> <br />
+                                        After you have selected the players you
+                                        can click the{' '}
+                                        <b style={{ color: colors.green }}>
+                                            "Start Game"
+                                        </b>{' '}
+                                        button.
+                                        <br /> <br />
+                                        This will take you to the board!! The
+                                        board has many tiles and each tile has
+                                        its own color. The different colors you
+                                        will be seeing are three.{' '}
+                                        <b style={{ color: colors.redTile }}>
+                                            Red
+                                        </b>
+                                        ,{' '}
+                                        <b style={{ color: colors.yellowTile }}>
+                                            yellow
+                                        </b>
+                                        , and{' '}
+                                        <b style={{ color: colors.greenTile }}>
+                                            green
+                                        </b>
+                                        . Each color represents one type of
+                                        question. <br />
+                                        <ul>
+                                            <li>
+                                                <b
+                                                    style={{
+                                                        color: colors.redTile,
+                                                    }}
+                                                >
+                                                    Red
+                                                </b>{' '}
+                                                represents "What questions".
+                                            </li>
+                                            <li>
+                                                <b
+                                                    style={{
+                                                        color:
+                                                            colors.yellowTile,
+                                                    }}
+                                                >
+                                                    Yellow
+                                                </b>{' '}
+                                                represents "What doing
+                                                questions"
+                                            </li>
+                                            <li>
+                                                <b
+                                                    style={{
+                                                        color: colors.greenTile,
+                                                    }}
+                                                >
+                                                    Green
+                                                </b>{' '}
+                                                represents "Who questions"
+                                            </li>
+                                        </ul>
+                                        <br />
+                                        The players play in sequence. The first
+                                        player will roll the dice and will start
+                                        moving on the board. When they land on a
+                                        tile a question will pop up and the
+                                        player who is playing is called to
+                                        answer the question. If they answer
+                                        correct they take one point. If they
+                                        dont answer the question correctly they
+                                        stay with the same amount of points.
+                                        After the question is answered the next
+                                        player will roll the dice and so on.
+                                        <br />
+                                        <br />
+                                        The game ends when all the players reach
+                                        the final tile and winner is the player
+                                        with the most points.
+                                    </h3>
+                                </div>
                             </Col>
                         </Row>
                     </Background>
