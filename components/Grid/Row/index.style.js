@@ -8,7 +8,8 @@ const RowStyles = styled.div`
     justify-content: center;
 
     &.inherited-height {
-        height: 100%;
+        min-height: inherit;
+        height: inherit;
     }
 
     .row {
