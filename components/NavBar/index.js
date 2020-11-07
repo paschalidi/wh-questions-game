@@ -25,7 +25,6 @@ const NavBarStyles = styled.div`
         align-items: center;
         justify-content: space-evenly;
         cursor: pointer;
-        font-weight: 400;
         transition: background-color ease 0.2s;
         transition: border ease 0.2s;
         outline: none;

@@ -77,7 +77,7 @@ export default function Home() {
                 <>
                     <Background>
                         <Row textAlign="center" position="center">
-                            <Col lg={6}>
+                            <Col lg={7}>
                                 <h1 style={{ paddingTop: '10vh' }}>
                                     <Wave>👋</Wave> {displayName}
                                 </h1>
@@ -142,14 +142,14 @@ export default function Home() {
                                         After you have selected the players you
                                         can click the{' '}
                                         <b style={{ color: colors.green }}>
-                                            "Start Game"
+                                            Start Game
                                         </b>{' '}
                                         button.
                                         <br /> <br />
                                         This will take you to the board!! The
                                         board has many tiles and each tile has
                                         its own color. The different colors you
-                                        will be seeing are three.{' '}
+                                        will be seeing are three. <br />
                                         <b style={{ color: colors.redTile }}>
                                             Red
                                         </b>
@@ -161,7 +161,9 @@ export default function Home() {
                                         <b style={{ color: colors.greenTile }}>
                                             green
                                         </b>
-                                        . Each color represents one type of
+                                        .
+                                        <br />
+                                        Each color represents one type of
                                         question. <br />
                                         <ul>
                                             <li>
@@ -200,15 +202,18 @@ export default function Home() {
                                         <br />
                                         The players play in sequence. The first
                                         player will roll the dice and will start
-                                        moving on the board. When they land on a
-                                        tile a question will pop up and the
-                                        player who is playing is called to
-                                        answer the question. If they answer
-                                        correct they take one point. If they
-                                        dont answer the question correctly they
-                                        stay with the same amount of points.
-                                        After the question is answered the next
-                                        player will roll the dice and so on.
+                                        moving on the board.
+                                        <br />
+                                        When they land on a tile a question will
+                                        pop up and the player who is playing is
+                                        called to answer the question.
+                                        <br />
+                                        If they answer correct they take one
+                                        point. If they dont answer the question
+                                        correctly they stay with the same amount
+                                        of points. After the question is
+                                        answered the next player will roll the
+                                        dice and so on.
                                         <br />
                                         <br />
                                         The game ends when all the players reach
