@@ -158,6 +158,7 @@ export const CharacterDropdown = ({
 
     return (
         <CardStyles>
+            <H1 style={{ paddingBottom: 16 }}>Choose your favourite animal</H1>
             <FunkyDropdownButton
                 ref={ref}
                 onClick={() => {
@@ -188,7 +189,6 @@ export const CharacterDropdown = ({
                                                 handlePlayerSelections(name)
                                             }
                                         >
-                                            
                                             <span className="itemIcon ">
                                                 {icon}
                                             </span>
@@ -203,11 +203,6 @@ export const CharacterDropdown = ({
                     </div>
                 )}
             </FunkyDropdownMenu>
-            <H1 style={{ paddingTop: 12, paddingBottom: 12 }}>How to choose</H1>
-            <div>
-                You want to choose your favourite food as a character to start
-                the game.
-            </div>
         </CardStyles>
     )
 }
