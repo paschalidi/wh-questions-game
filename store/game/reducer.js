@@ -15,7 +15,7 @@ import {
     openModal,
     answerCorrect,
     answerFalse,
-    startGame,
+    startGame, answerForFinishingLine,
 } from './actions'
 
 const initialState = {
@@ -73,6 +73,9 @@ export const gameReducer = createReducer(initialState, builder => {
             state.allPlayers[state.playingPlayerId].score++
         })
         .addCase(answerFalse, state => {
+            state.status = gameStatuses.NEUTRAL
+        })
+        .addCase(answerForFinishingLine, state => {
             state.status = gameStatuses.NEUTRAL
         })
         .addCase(

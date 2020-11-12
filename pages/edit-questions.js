@@ -120,12 +120,6 @@ const Form = ({ formId, onSubmit, onFileChange }) => {
     )
 }
 
-const minQuestionsPerType = {
-    red: 9,
-    yellow: 4,
-    green: 5,
-}
-
 const EditQuestions = () => {
     const dispatch = useDispatch()
     const { red, yellow, green } = useSelector(
@@ -204,9 +198,6 @@ const EditQuestions = () => {
                 {red && (
                     <Col lg={3}>
                         <h2>What questions - red tiles</h2>
-                        <BorderBottom>
-                            Minimum number of questions possible is 9
-                        </BorderBottom>
                         <List>
                             {Object.values(red).map(
                                 (
@@ -230,8 +221,7 @@ const EditQuestions = () => {
                                             )}
                                         </Col>
                                         <Col lg={2}>
-                                            {array.length >
-                                                minQuestionsPerType[type] && (
+                                            {array.length !== 1 && (
                                                 <DeleteButton
                                                     onClick={() => {
                                                         dispatch(
@@ -260,9 +250,6 @@ const EditQuestions = () => {
                 {yellow && (
                     <Col lg={3}>
                         <h2>What doing questions - yellow tiles</h2>
-                        <BorderBottom>
-                            Minimum number of questions possible is 4
-                        </BorderBottom>
                         <List>
                             {Object.values(yellow).map(
                                 (
@@ -287,8 +274,7 @@ const EditQuestions = () => {
                                             )}
                                         </Col>
                                         <Col lg={2}>
-                                            {array.length >
-                                                minQuestionsPerType[type] && (
+                                            {array.length !== 1 && (
                                                 <DeleteButton
                                                     onClick={() => {
                                                         dispatch(
@@ -317,9 +303,6 @@ const EditQuestions = () => {
                 {green && (
                     <Col lg={3}>
                         <h2>Who questions - green tiles</h2>
-                        <BorderBottom>
-                            Minimum number of questions possible is 5
-                        </BorderBottom>
                         <List>
                             {Object.values(green).map(
                                 (
@@ -343,8 +326,7 @@ const EditQuestions = () => {
                                             )}
                                         </Col>
                                         <Col lg={2}>
-                                            {array.length >
-                                                minQuestionsPerType[type] && (
+                                            {array.length !== 1 && (
                                                 <DeleteButton
                                                     onClick={() => {
                                                         dispatch(

@@ -5,7 +5,12 @@ import styled, { css } from 'styled-components'
 import useDimensions from 'react-cool-dimensions'
 import { MAX_POSSIBLE_STEPS, Pawn } from '../Pawn'
 import { useDispatch, useSelector } from 'react-redux'
-import { answerCorrect, answerFalse, resetGame } from '../../store/game/actions'
+import {
+    answerCorrect,
+    answerFalse, answerForFinishingLine,
+    deriveNextPlayer,
+    resetGame,
+} from '../../store/game/actions'
 import { gameStatuses } from '../../store/game/reducer'
 import { RainbowIcon } from '../svgs/RainbowIcon'
 import Modal from 'react-modal'
@@ -175,7 +180,9 @@ export const Board = () => {
                                     <Button
                                         style={{ margin: '0 auto' }}
                                         type="primary"
-                                        onClick={() => dispatch(answerFalse())}
+                                        onClick={() =>
+                                            dispatch(answerForFinishingLine())
+                                        }
                                     >
                                         next player
                                     </Button>
@@ -189,7 +196,6 @@ export const Board = () => {
                                             onClick={() =>
                                                 dispatch(
                                                     answerFalse({
-                                                        id,
                                                         type: questionType,
                                                     })
                                                 )
@@ -205,7 +211,6 @@ export const Board = () => {
                                             onClick={() =>
                                                 dispatch(
                                                     answerCorrect({
-                                                        id,
                                                         type: questionType,
                                                     })
                                                 )

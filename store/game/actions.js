@@ -11,6 +11,9 @@ export const startNextRound = createAction('[game] next player is on')
 export const openModal = createAction('[game] open modal')
 export const answerCorrect = createAction('[game] correct answer')
 export const answerFalse = createAction('[game] wrong answer')
+export const answerForFinishingLine = createAction(
+    '[game] finishing line answer'
+)
 
 export const disableRoll = createAction('[game] disable dice')
 export const resetGame = createAction('[game] reset')

@@ -17,8 +17,10 @@ import {
     answerCorrect,
     answerFalse,
     startNextRound,
+    answerForFinishingLine,
 } from './actions'
-import { of, range } from 'rxjs'
+import { concat, of, range } from 'rxjs'
+import { prepareQuestionsForNextRoundByReordering } from '../questions/actions'
 
 const deriveNextPlayerIndex = (playingPlayerId, allPlayers) => {
     const currentPlayingPlayerIndexInAllPlayers = Object.values(
@@ -31,7 +33,7 @@ const deriveNextPlayerIndex = (playingPlayerId, allPlayers) => {
         0,
         currentPlayingPlayerIndexInAllPlayers + 1
     )
-    const chunkSecond = listOfPlayers.splice(
+    const chunkSecond = listOfPlayers.slice(
         currentPlayingPlayerIndexInAllPlayers + 1
     )
     const allPlayersSorted = [...chunkSecond, ...chunkFirst]
@@ -80,15 +82,50 @@ export const openModalEpic = action$ =>
         })
     )
 
+const deriveNewOrderOfQuestions = (questions, type) => {
+    if (!type) {
+        return questions
+    }
+    const thisTypeOfQuestions = questions[type]
+    const firstChunk = thisTypeOfQuestions.slice(0, 1)
+    const secondChunk = thisTypeOfQuestions.slice(1)
+    const newlySortedQuestions = [...secondChunk, ...firstChunk]
+    return { ...questions, [type]: newlySortedQuestions }
+}
 export const closeModalEpic = (action$, state$) =>
     action$.pipe(
         ofType(answerCorrect, answerFalse),
+        flatMap(({ payload: { type } }) => {
+            const { allPlayers, playingPlayerId } = state$.value.gameReducer
+            const { questions } = state$.value.questionsReducer
+            const nextPlayingPlayerId = deriveNextPlayerIndex(
+                playingPlayerId,
+                allPlayers
+            )
+
+            const resortedQuestions = deriveNewOrderOfQuestions(questions, type)
+
+            return concat(
+                of(
+                    prepareQuestionsForNextRoundByReordering({
+                        resortedQuestions,
+                    })
+                ),
+                of(startNextRound({ nextPlayingPlayerId }))
+            )
+        })
+    )
+
+export const closeModalForFinishingLineEpic = (action$, state$) =>
+    action$.pipe(
+        ofType(answerForFinishingLine),
         map(() => {
             const { allPlayers, playingPlayerId } = state$.value.gameReducer
             const nextPlayingPlayerId = deriveNextPlayerIndex(
                 playingPlayerId,
                 allPlayers
             )
+
             return startNextRound({ nextPlayingPlayerId })
         })
     )

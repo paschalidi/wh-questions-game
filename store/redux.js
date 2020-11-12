@@ -16,7 +16,12 @@ import {
     deleteQuestionEpic,
     setImageUrlEpic,
 } from './questions/epics'
-import { gameEpic, openModalEpic, closeModalEpic } from './game/epics'
+import {
+    gameEpic,
+    openModalEpic,
+    closeModalEpic,
+    closeModalForFinishingLineEpic,
+} from './game/epics'
 import { firebase$ } from './firebase/config'
 
 const rootEpic = combineEpics(
@@ -27,6 +32,7 @@ const rootEpic = combineEpics(
     gameEpic,
     openModalEpic,
     closeModalEpic,
+    closeModalForFinishingLineEpic,
     fetchExistingQuestionsEpic,
     addNewQuestionEpic,
     deleteQuestionEpic,

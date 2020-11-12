@@ -2,13 +2,13 @@ import {
     addNewQuestionCompleted,
     deleteQuestionCompleted,
     fetchExistingQuestionsCompleted,
+    prepareQuestionsForNextRoundByReordering,
     setImageUrl,
     setImageUrlCompleted,
 } from './actions'
 import { v4 as uuid } from 'uuid'
 
 import { createReducer } from '@reduxjs/toolkit'
-import { answerCorrect, answerFalse } from '../game/actions'
 
 export const questionsReducer = createReducer(
     {
@@ -44,7 +44,7 @@ export const questionsReducer = createReducer(
                     state.questions[type] = newQuestions
                 }
             )
-            .addCase(setImageUrl, (state, { payload: { url, type } }) => {
+            .addCase(setImageUrl, (state, { payload: { type } }) => {
                 state.imagesUrl[type].isUploadingPhoto = true
             })
             .addCase(
@@ -54,21 +54,11 @@ export const questionsReducer = createReducer(
                     state.imagesUrl[type].isUploadingPhoto = false
                 }
             )
-            .addCase(answerCorrect, (state, { payload: { id, type } }) => {
-                state.questions = {
-                    ...state.questions,
-                    [type]: state.questions[type].filter(
-                        ({ id: questionId }) => questionId !== id
-                    ),
+            .addCase(
+                prepareQuestionsForNextRoundByReordering,
+                (state, { payload: { resortedQuestions } }) => {
+                    state.questions = resortedQuestions
                 }
-            })
-            .addCase(answerFalse, (state, { payload: { id, type } }) => {
-                state.questions = {
-                    ...state.questions,
-                    [type]: state.questions[type].filter(
-                        ({ id: questionId }) => questionId !== id
-                    ),
-                }
-            })
+            )
     }
 )

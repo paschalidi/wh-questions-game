@@ -40,3 +40,7 @@ export const setImageUrlCompleted = createAction(
 export const setImageUrlFailed = createAction(
     '[questions]  setting an image url for the question failed'
 )
+
+export const prepareQuestionsForNextRoundByReordering = createAction(
+    '[questions] prepares next round by moving the question that has answered in this round to the end of the pile'
+)
