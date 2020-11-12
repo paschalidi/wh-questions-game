@@ -24,7 +24,7 @@ const FunkyDropdownButton = styled(FunkyButton)`
 const FunkyDropdownMenu = styled.div`
     z-index: 1;
     position: absolute;
-    transform: ${props => `translate(${props.width}px, 1vh)`};
+    transform: ${({ position }) => `translate(${position}px, 1.5vh)`};
 
     .selectorOptions {
         overflow: hidden;
@@ -69,8 +69,8 @@ const FunkyDropdownMenu = styled.div`
     }
 `
 
-const H1 = styled.h1`
-    font-size: 1.5em;
+const H2 = styled.h2`
+    font-size: 1.4em;
     font-weight: normal;
     color: #f54768;
     margin: 0;
@@ -136,7 +136,7 @@ export const CharacterDropdown = ({
     players,
     selectPlayer,
 }) => {
-    const [ref, { width }] = useDimensions()
+    const [ref, buttonSize] = useDimensions()
 
     const handlePlayerSelections = name => {
         selectPlayer({
@@ -146,9 +146,13 @@ export const CharacterDropdown = ({
         openMenu(null)
     }
 
+    const [titleRef, titleSize] = useDimensions()
+
+    console.log(buttonSize.width)
+    console.log(titleSize.width)
     return (
         <CardStyles>
-            <H1 style={{ paddingBottom: 16 }}>Choose your favourite animal</H1>
+            <H2 style={{ paddingBottom: 16 }}>Choose your favourite animal</H2>
             <FunkyDropdownButton
                 ref={ref}
                 onClick={() => {
@@ -161,35 +165,32 @@ export const CharacterDropdown = ({
                     return openMenu(menuId)
                 }}
             >
-                {players[menuId].name
-                    ? players[menuId].name
-                    : '👉 Choose 👈'}
+                {players[menuId].name ? players[menuId].name : '👉 Choose 👈'}
+                <FunkyDropdownMenu position={buttonSize.width / 2 - 68}>
+                    {menuId === openMenuId && (
+                        <div style={{ width: 100 }}>
+                            <ul className="selectorOptions">
+                                {Object.values(AVAILABLE_PLAYERS).map(
+                                    ({ name, icon }) => (
+                                        <li key={name}>
+                                            <div
+                                                className="item"
+                                                onClick={() =>
+                                                    handlePlayerSelections(name)
+                                                }
+                                            >
+                                                <span className={'itemIcon'}>
+                                                    {icon}
+                                                </span>
+                                            </div>
+                                        </li>
+                                    )
+                                )}
+                            </ul>
+                        </div>
+                    )}
+                </FunkyDropdownMenu>
             </FunkyDropdownButton>
-
-            <FunkyDropdownMenu width={width / 2 - 50}>
-                {menuId === openMenuId && (
-                    <div style={{ width: 100 }}>
-                        <ul className="selectorOptions">
-                            {Object.values(AVAILABLE_PLAYERS).map(
-                                ({ name, icon }) => (
-                                    <li key={name}>
-                                        <div
-                                            className="item"
-                                            onClick={() =>
-                                                handlePlayerSelections(name)
-                                            }
-                                        >
-                                            <span className={'itemIcon'}>
-                                                {icon}
-                                            </span>
-                                        </div>
-                                    </li>
-                                )
-                            )}
-                        </ul>
-                    </div>
-                )}
-            </FunkyDropdownMenu>
         </CardStyles>
     )
 }

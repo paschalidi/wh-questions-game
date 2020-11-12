@@ -258,7 +258,6 @@ const EditQuestions = () => {
                                     array
                                 ) => (
                                     <Row key={id} fullWidth>
-                                        {console.log(type)}
                                         <Col lg={8}>
                                             <h3>{question}</h3>
                                         </Col>
