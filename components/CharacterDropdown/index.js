@@ -163,7 +163,7 @@ export const CharacterDropdown = ({
             >
                 {players[menuId].name
                     ? players[menuId].name
-                    : '👉 Choose character 👈'}
+                    : '👉 Choose 👈'}
             </FunkyDropdownButton>
 
             <FunkyDropdownMenu width={width / 2 - 50}>
